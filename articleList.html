@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+	<link rel="stylesheet" href="../css/yuyin.fonts.css" />
+	<link rel="stylesheet" href="../css/yy.css" />
+	<link rel="icon" href="../img/app/yuyinfavicon.ico" />
+	<style>
+		#article_list{margin-bottom: 60px; }
+
+		.advert{ margin: 60px 0; width: 100%; overflow: hidden;}
+		.advert_icon_wrap{height: 24px}
+		.advert_icon_wrap>img{height: 100%;}
+	</style>
+</head>
+<body>
+<div id="loading">
+	<div class="yyloader">
+			<span></span>
+			<span></span>
+			<span></span>
+			<img src="http://up.wawa.fm/21,019486d41d666e"/>
+	</div>
+</div>
+<div class="article_list">
+	<ul id="article_list">
+	</ul>
+	<a id="more"  class="more"></a>
+</div>
+	<script src="../js/jquery.js"></script>
+	<script src="../js/md5.min.js"></script>
+	<script src="../js/yy.js"></script>
+	<script>
+		$(function(){
+			var reqdata = { category: 4, size: 10, page: 1 },
+					$article_list = $('#article_list'),
+					$win= $(window),
+					$doc= $(document),
+					$more = $("#more"),
+					$loading = $('#loading'),
+					isLoad = false,
+					isFooter = false;
+			// 11/18 图片比例
+			request = function(){
+				$.yy['ajax']({
+					url: "doc/list",
+					type: "GET",
+					data: reqdata,
+					success: function(data){
+						localStorage.setItem("doc/list" + reqdata['page'],JSON.stringify(data));
+						var list = data, page = data[page], len = list.length, dom = '';
+						if (len > 0) {
+							for (var i = 0; i < len; i++){
+
+								dom += '<li class="list" >' +
+												'<div class="list-img-1" title="乐文" subTitle="MUSIC ARTICLE" article_info="'+ list[i]['id']+'">' +
+												'<div class="tip"  style="width:100%; overflow: hidden;" >'+
+													'<img id="listImg'+ i +'" class="img-content" src="http://up.wawa.fm/17,0154131f98d2fe?width=500"></div>'+
+												'<h1 class="list-h1 bolder">'+ list[i]['title'] +'</h1>'+
+												'<h4 class="list-h4"><span class="list-span">乐人：'+ list[i]['nickname']+'</span>阅读量：' + list[i]['view_count'] + '次</h4>'+
+												'</div>'
+											'</li>'
+
+								$.yy['loadImage']( list[i]['res_cover']+"?width=500", "listImg"+i );
+							}
+						}
+						$article_list.css("display", "block");
+						$article_list.append(dom);
+						wrapH = parseInt($('.list-img-1').width()*11/18);
+						$('.tip').css("height",wrapH);
+
+						// 广告
+						/*advertiseDom ='<li class="advert"  title="乐文" subTitle="MUSIC ARTICAL" article_info="">' +
+												'<div class="list-img-1">' +
+												'<div class="tip"  style="width:100%; overflow: hidden;" >'+
+													'<img id="" class="img-content" src="http://up.wawa.fm/17,0154131f98d2fe?width=300"></div>'+
+												'<h1 class="list-h1 bolder">城市中心公园每平米只售三千八,出门就是地铁，永久产权</h1>'+
+												'<h4 class="advert_icon_wrap"><img class="fl" src="../img/yuyin/广告@1x.svg"><img id="advert_close" class="fr" src="../img/yuyin/关闭广告@1x.svg"></h4>'+
+												'</div>'
+											'</li>'
+						$article_list.append(advertiseDom);*/
+																							
+					},
+					error: function(error){
+						$article_list.css("display", "none");						
+					},
+					complete: function(){
+						$loading.css("display", "none");
+					},
+					
+				});
+			};
+			
+			var setList = function(key){
+        var list = JSON.parse(localStorage.getItem(key)),
+        dom = '',len = list.length, before = $article_list.children("li").length;
+
+       	if (len > 0) {
+							for (var i = 0; i < len; i++){
+								dom += '<li class="list" >' +
+												'<div class="list-img-1" title="乐文" subTitle="MUSIC ARTICAL" article_info="'+ list[i]['id']+'">' +
+												'<div class="tip" style="width:100%; overflow: hidden;" >'+
+													'<img id="listImg'+ before+i +'" class="img-content" src="http://up.wawa.fm/17,0154131f98d2fe?width=500"></div>'+
+												'<h1 class="list-h1 bolder">'+ list[i]['title'] +'</h1>'+
+												'<h4 class="list-h4"><span class="list-span">乐人：'+ list[i]['nickname']+'</span>阅读量：' + list[i]['view_count'] + '次</h4>'+
+												'</div>'
+											'</li>'
+								$.yy['loadImage']( list[i]['res_cover']+'?width=500', "listImg"+before+i );
+							}
+					$article_list.append(dom);
+					wrapH = parseInt($('.list-img-1').width()*11/18);
+					$('.tip').css("height",wrapH);
+        }else{
+            $more.html('到底了');
+            isFooter = true;
+        };
+
+      }
+
+			request();
+			// 上拉加载
+			$doc.on("scrollstop",function(){
+  			if($win.scrollTop() + $win.height() >= $doc.height()-400 && !isLoad && !isFooter ){
+  	 		  $more.html('<div class="yyloader"><span></span><span></span><span></span><img src="http://up.wawa.fm/21,019486d41d666e"/></div>');
+					isLoad = true;
+					reqdata = {	category: 4, size: 10, page: Math.ceil($article_list.children("li").length / 10)+1 }  
+      	 	if (navigator.onLine){
+
+  	 		  	$.yy['ajax']({
+  	 		  		url: "doc/list",
+  	 		  		type: "GET",
+  	 		  		data: reqdata,
+  	 		  		success: function(data){localStorage.setItem("doc/list" + reqdata['page'], JSON.stringify(data));},
+  	 		  		error: function(){$more.html("请求数据有误").show();return false;},
+  	 		  		complete: function(data,para) { 
+            		isLoad = false;
+								if (localStorage.getItem("doc/list" + reqdata['page']) == undefined) {
+			      		    $more.html("暂无数据").show();
+			      		    return false
+			      		} else {
+			      		  setList("doc/list"+reqdata['page']);
+			      		}
+            	}
+  	 		  	})
+  	 		 	} else {
+  	 		 		$more.html("网络连接错误").show();
+		  	  	return false;
+				 	}
+      	}
+      	return false;
+  		});
+
+  		$doc.on("tap",'.list-img-1', function() {
+  			$.yy['nextHref']('articleInfo.html',$(this).attr("article_info"),$(this).attr("title"),$(this).attr("subTitle"));
+  			return false;
+  		})
+  		/*// 关闭广告
+  		.on("tap",'#advert_close', function() {
+  			$('.advert').remove();
+  			return false;
+  		})*/
+		});
+	</script>
+</body>
+</html>

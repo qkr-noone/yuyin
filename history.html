@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+	<link rel="stylesheet" href="../css/yuyin.fonts.css" />
+	<link rel="stylesheet" href="../css/yy.css" />
+	<link rel="icon" href="../img/app/yuyinfavicon.ico" />
+	<title></title>
+
+	<style>
+	ul,li,p{margin:0; padding: 0;}
+	
+	.history_info{ margin-top: 15px; width: 100%; overflow: hidden;}
+	.history_info>ul>li+li{margin-top: 60px;}
+	</style>
+
+</head>
+<body>
+<div id="loading">
+	<div class="yyloader">
+			<span></span>
+			<span></span>
+			<span></span>
+			<img src="http://up.wawa.fm/21,019486d41d666e"/>
+	</div>
+</div>
+<div class="history_info ">
+	<ul>
+		<li >
+			<div class="list-img-1" page_href="http://up.wawa.fm/17,0154131f98d2fe?width=300">
+			<div class="tip"  style="width:100%; overflow: hidden;" >
+				<img id="" class="img-content" src="http://up.wawa.fm/17,0154131f98d2fe?width=300"></div>
+			<h1 class="list-h1 bolder">城市中心公园每平米只售三千八,出门就是地铁，永久产权</h1>
+			<h4 class="list-h4 ellipsis">活动时间：1月23日-2月23日（正在进行）</h4>
+			</div>
+		</li>
+		<li>
+			<div class="list-img-1" page_href="www.wawa.fm">
+			<div class="tip"  style="width:100%; overflow: hidden;" >
+				<img id="" class="img-content" src="http://up.wawa.fm/17,0154131f98d2fe?width=300"></div>
+			<h1 class="list-h1 bolder">城市中心公园每平米只售三千八,出门就是地铁，永久产权</h1>
+			<h4 class="list-h4 ellipsis">活动时间：1月23日-2月23日（正在进行）</h4>
+			</div>
+		</li>
+	</ul>
+</div>
+	
+	<script src="../js/jquery.js"></script>
+	<script src="../js/md5.min.js"></script>
+	<script src="../js/yy.js"></script>
+	<script>		
+		/*
+			Q.user_id
+		*/
+		$(function(){
+			var $win= $(window),
+					$doc= $(document),
+					$loading = $('#loading');
+			$loading.css("display","none");
+			$doc.on('tap', ".list-img-1", function() {
+				open_web_view_api($(this).attr('page_href')) //历史活动链接
+			})
+		});
+
+
+	</script>
+</body>
+</html>

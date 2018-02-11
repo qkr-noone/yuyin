@@ -1,0 +1,1484 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="blank" />
+  <meta name="format-detection" content="telephone=no" />
+	<link rel="stylesheet" href="../css/yuyin.fonts.css" />
+	<link rel="stylesheet" href="../css/yy.css" />
+	<link rel="stylesheet" href="../css/yuyin.isp.css" />
+	<link rel="icon" href="../img/app/yuyinfavicon.ico" />
+	<title></title>
+
+
+</head>
+<body>
+<div id="loading">
+	<div class="yyloader">
+			<span></span>
+			<span></span>
+			<span></span>
+			<img src="http://up.wawa.fm/21,019486d41d666e"/>
+	</div>
+</div>
+<div class="pager rpage" id="order">
+ <div id="ringInfo">
+		<div class="isp_tit">
+			<h1 id="ring" class="change_choose" >
+				<p>Ring-back</p><p>彩铃</p>
+			</h1>
+		</div>
+		<div class="ring_de">
+			<div class="isp_cont">
+				<div class="ring_info" id="ring_info">
+				</div>
+				<div class="ring_buy_type change_set">
+					<a href="#!order/singleInfo">单首订购</a>
+					<a href="#!order/monthInfo">包月订购</a>
+				</div>
+				<div class="ring_tip rm_ring_tip" ><p>单首订购的咨询费为 <strong>2元/首</strong>，包月订购则为 <strong>5元/月</strong></p>
+				</div>
+			</div>
+			<div class="line"></div>
+			<div class="ring_tip_2">
+				<p>1、开通彩铃会员后可免费不限次数的更换所有彩铃<p>2、彩铃包月服务需开通彩铃功能，5元/月，由运营商收取；若您未开通，我们将一并为您开通；若您已开通，请忽略此项。</p>
+				</p>
+			</div>
+		</div>
+ </div>
+ <div id="taskInfo">		
+ </div>
+ <div id="singleInfo">
+		<div class="isp_tit">
+			<h1 id="ring" class="change_choose" >
+				<p>Single Song</p><p>单首</p>
+			</h1>
+		</div>
+		<div class="login" id="loginSingle">
+			<input class="tel_val" id="sbphone" type="tel" placeholder="联通手机号码" maxlength="11">
+			<div class="tel_re">
+				<input class="tel_ma" id="sbkey" type="tel" placeholder="验证码" maxlength="6">
+				<a class="send_ma disabled" id="sbcode">发送验证码</a>
+			</div>
+			<a class="send_ma send_ring disabled" id="sPayOrder">设为彩铃</a>
+			<div class="ring_tip_2 send_ring_tip">
+				<p>1、订购单首彩铃（2元/首）</p><p>2、彩铃单首服务需开通彩铃功能，5元/月，运营商收取；若您未开通，我们将一并为您开通；若您已开通，请忽略此项。</p>
+			</div>
+		</div>
+ </div>
+ <div id="monthInfo">
+		<div class="isp_tit">
+			<h1 id="ring" class="change_choose" >
+				<p>Open monthly</p><p>包月</p>
+			</h1>
+		</div>
+		<div class="login" id="loginMonth">
+			<input class="tel_val" id="mbphone" type="tel" placeholder="联通手机号码" maxlength="11">
+			<div class="tel_re">
+				<input class="tel_ma" id="mbkey" type="tel" placeholder="验证码" maxlength="6">
+				<a class="send_ma disabled" id="mbcode">发送验证码</a>
+			</div>
+			<a class="send_ma send_ring disabled" id="mPayOrder">彩铃包月</a>
+			<div class="ring_tip_2 send_ring_tip">
+				<p>1、开通彩铃包月服务（5元/月），开通后可免费不限次数的更换所有彩铃.</p><p>2、彩铃包月服务需开通彩铃功能（5元/月），由运营商收取；若您未开通，我们将一并为您开通；若您已开通，请忽略此项.</p>
+			</div>
+		</div>
+ </div>
+</div>
+<div class="pager rpage" id="index">
+	<nav class="isp_tit">
+		<a id="ring" href="#!index/home"  class="change_choose" >
+			<p>Ring-back</p><p>彩铃</p>
+		</a>
+		<a id="search" href="#!index/search">
+			<p>SEARCH</p><p>搜索</p>
+		</a>
+		<a id="me" href="#!index/user">
+			<p>My Rings</p><p>我的</p>
+		</a>
+	</nav>
+	<div class="ring_de" id="home">
+		<div class="isp_cont">
+			<div class="ring_info" id="home_ring_info">				
+			</div>
+			<div class="ring_buy_type change_set">
+				<a href="#!order/singleInfo">单首订购</a>
+				<a href="#!order/monthInfo">包月订购</a>
+			</div>
+			<div class="ring_tip rm_ring_tip"><p>单首订购的咨询费为 <strong>2元/首</strong>；包月订购则为 <strong>5元/月</strong>，在期限内可免费不限次数的更换所有彩铃</p>
+			</div>
+		</div>
+		<div class="line"></div>
+		<div class="ring_song">
+			<ul class="tab_type" id="tabslist">
+				<li cate="2" target="#main_list1" class="choose_tab"><h1 class="tab_title">热门推荐</h1><h4 class="tab_mintitle">RECOMMEND</h4></li>
+				<li cate="7" target="#main_list2"><h1 class="tab_title">挖哇专区</h1><h4 class="tab_mintitle">WAWA AREA</h4></li>
+				<li cate="8" target="#main_list3"><h1 class="tab_title">民谣摇滚</h1><h4 class="tab_mintitle">ROCK&FOLK</h4></li>
+				<li cate="9" target="#main_list4"><h1 class="tab_title">影视原声</h1><h4 class="tab_mintitle">OST</h4></li>
+			</ul>
+		</div>
+		<div class="rlist_box" id="rlist_box">
+			<ul id="main_list1"></ul>
+			<ul id="main_list2"></ul>
+			<ul id="main_list3"></ul>
+			<ul id="main_list4"></ul>
+		</div>
+	</div>
+	<div class="search_de" id="searchInfo">
+		<div class="filter_box">
+			<i class="icon-search"></i><input class="search" id="key" type="search" name="" placeholder="请输入检索内容">
+			<input type="button" class="find" id="find" value="搜索">
+		</div>
+		<ul class="filter_info" id="filter_info"></ul>
+	</div>
+	<div class="me_de" id="user">
+		<div class="login" id="login">
+			<h1 class="headline bolder">登录手机号</h1>
+			<p class="subline">登录后可以管理彩铃哦~</p>
+			<input class="tel_val" id="obphone" type="tel" placeholder="联通手机号码" maxlength="11">
+			<div class="tel_re">
+				<input class="tel_ma" id="obkey" type="tel" placeholder="验证码" maxlength="6">
+				<a class="send_ma disabled" id="obcode">发送验证码</a>
+			</div>
+			<a class="send_ma send_ring disabled" id="oPayOrder">登录</a>
+			<!-- <div class="ring_tip_2 send_ring_tip">
+				<p>1、开通彩铃包月服务（5元/月），开通后可免费不限次数的更换所有彩铃.</p><p>2、彩铃包月服务需开通彩铃功能（5元/月），由运营商收取；若您未开通，我们将一并为您开通；若您已开通，请忽略此项.</p>
+				<p>3、该服务为包月服务，当月取消，次月生效。不取消则默认继续使用该服务.</p>
+				<p>4、业务退订方式：进入 [我的] 页面 - 点击 [取消包月] - 完成退订；或者拨打10010客服电话进行退订.</p>
+			</div> -->
+		</div>
+		<div class="me_info" id="me_info">
+			<div class="isp_cont" style="margin: 0">
+				<div class="ring_info">
+					<img class="ring_cover_head" id="logout" src="../img/yuyin/avatar.png">
+					<img class="ring_cover_bg" src="../img/yuyin/isp/ring_buttom_bg.png">
+					<i class="icon-play-button"></i>
+					<div class="ring_name">
+						<h4 class="ellipsis">联通手机号码</h4><h2 class="bolder ellipsis" id="admin_phone"></h2>
+					</div>
+				</div>
+				<div class="ring_buy_type">
+					<a id="mpybtn">取消包月</a>
+				</div>
+				<div class="ring_tip"><p>点击头像可注销账号，该账号目前共订购有<strong id="ulist_num">0</strong>首彩铃</p>
+				</div>
+			</div>
+			<div class="line" style="margin: 0"></div>
+			<div class="rlist_box" style="margin: 0">
+				<ul id="ulist_box">					
+				</ul>
+			</div>
+		</div>
+		<div class="change_ring">
+			<ul>
+				<li id="set_my_ring">
+					<i class="icon-isp"></i>
+					<div class="comp_de">
+						<h2 class="bolder">设为彩铃</h2>
+						<h4>Change My Ring</h4>
+					</div>
+				</li>
+				<li id="delete_my_ring">
+					<i class="icon-delete"></i>
+					<div class="comp_de">
+						<h2 class="bolder">删除彩铃</h2>
+						<h4>Delete My Ring</h4>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>	
+</div>
+<div class="res_page" id="res_page">
+    <i class="res_icon" id="res_icon"></i>
+    <h1 class="bolder" id="res_title"></h1>
+    <p id="res_desc"></p>
+    <div id="res_btns" class="res_btns resbtn bolder"></div>
+</div>
+<audio id="audio" preload="preload" ></audio>
+<!-- controls="controls" style="height: 40px;width:100%;display: block; position: fixed;bottom: 0px;" -->
+	
+	<script src="../js/jquery.js"></script>
+	<script src="../js/jquery.cookie.min.js"></script>
+	<script src="../js/jquery.validate.min.js"></script>
+	<script src="../js/md5.min.js"></script>
+	<script src="../js/yy.js"></script>
+	<script src="../js/q.js"></script>
+	<script>		
+		$(function(){
+			var $win= $(window),
+					$doc= $(document),
+					$filter_info = $('#filter_info'),
+					isSearch = false,
+					$find = $('#find'),
+					$key = $('#key'),
+					$loading = $('#loading'),
+					$title = $('title'),
+					$nav_item = $("nav").find("a"),
+					$index = $('#index'),
+					$home = $('#home'),
+					$searchInfo = $('#searchInfo'),
+					$order = $('#order'),
+					$user = $('#user'),
+					$ringInfo = $('#ringInfo'),
+					$taskInfo = $('#taskInfo'),
+					$login = $('#login'),
+					$meInfo = $('#me_info'),
+          $mainList1 = $('#main_list1'),
+          $rlist_box = $('#rlist_box'),
+          $tabs = $('#tabslist').find('li'),
+          isLoad = false,
+          audio = document.getElementById('audio'),
+          user = { phone: '', isOpen: false, isBase: false, is4G: false, isOver: false, uid: 0, token: '' },
+          crbt_0id = '',
+          crbt_2id = '',
+          cucc = $.yy['getQuery']('cucc'),
+          crbt_contentid = '',
+          crbt_songname = '',
+          phone = '',
+          code = '',
+          $home_ring_info = $('#home_ring_info'),
+          $ring_info = $('#ring_info'),
+          $first_buy = $('#first_buy'),
+          $month_buy = $('#month_buy'),
+          $monthInfo = $('#monthInfo'),
+          $singleInfo = $('#singleInfo'),
+          $rpage = $(".rpage"),
+          $res_page = $("#res_page"),
+          $res_icon = $("#res_icon"),
+          $res_title = $("#res_title"),
+          $res_desc = $("#res_desc"),
+          $res_btns = $("#res_btns"),
+          $ulist_box = $("#ulist_box"),
+          $ulist_num = $("#ulist_num"),
+          $mpybtn = $("#mpybtn"),
+          $admin_phone = $("#admin_phone"),
+          $loginMonth = $("#loginMonth"),
+          $monthTip = $("#monthTip"),
+          $change_set = $(".change_set"),
+          $setRing = $("#setRing"),
+          $ring_tip = $(".ring_tip"),
+          $rm_ring_tip = $(".rm_ring_tip"),
+          com_songname = '',
+          com_tid = '';
+
+			Q.reg(['index', 'order', 'user']);
+			Q.init({
+				index: 'index',
+				pop:navchange = function(page, query) {
+					var a;//临时变量
+    			switch (page) {
+            	case "index":
+            	    $nav_item.removeClass("change_choose");
+            	    $("nav>a[href='#!" + page + "/" + (query || 'home') + "']").addClass('change_choose');
+            	    switch (query) {
+            	        case "search":
+            	            $title.html('搜索彩铃');
+            	            $searchInfo.show();
+            	            $user.hide();
+            	            $home.hide();
+            	            break;
+            	        case "user":
+            	            $title.html('我的彩铃');
+            	            if (user['phone'] && $ulist_box.children("li").length == 0) {  //测试 li 为 0
+            	            	getUserList(user['phone']);
+            	            }
+            	            $user.show();
+            	            $searchInfo.hide();
+            	            $home.hide();
+            	            user['phone'] ? $meInfo.show() : $login.show();
+            	            break;
+            	        default:
+            	            $title.html('设置彩铃');
+            	            $home.show();
+            	            $user.hide();
+            	            $searchInfo.hide();
+            	            break;
+            	    }
+            	    $index.show();
+            	    $order.hide();
+            	    break;
+            	case "order":
+            	    $title.html('设置彩铃');
+            	    switch (query) {
+            	        case "ringInfo":                                
+            	            $ringInfo.show();
+            	            $taskInfo.hide();
+            	            $singleInfo.hide();
+            	            $monthInfo.hide();
+                          break;
+                      case "taskInfo":
+                          $taskInfo.show();
+                          $ringInfo.hide();
+            	            $singleInfo.hide();
+            	            $monthInfo.hide();
+                          break;
+                      case "singleInfo":
+                          $singleInfo.show();
+                          $ringInfo.hide();
+            	            $taskInfo.hide();
+            	            $monthInfo.hide();
+                          break;
+                      case "monthInfo":
+                          $monthInfo.show();
+                          $ringInfo.hide();
+            	            $taskInfo.hide();
+            	            $singleInfo.hide();
+                          break;
+                      default:
+                          break;
+                  }
+                  setInfo($ring_info, query);
+                  $index.hide();
+                  $order.show();
+                  break;
+          }
+				}
+			})
+
+  		getUserInfo(function() {
+          setInfo($home_ring_info, window.location.hash.split('/')[1]);
+      });      
+      
+			$doc.on("tap", ".tab_type>li", function(){ //get
+				var that = $(this),
+						category = that.attr('cate'),
+            $box = $(that.attr("target"));
+        $tabs.removeClass("choose_tab");
+        that.addClass('choose_tab');
+				$rlist_box.children('ul').hide();
+        $box.show();
+        if ($box.find('li').length == 0) {
+        	ispAjax(category, $box);
+        }
+				return false
+			})
+			.on("tap", '#find', function() { //get
+  			if ($key.val() && !isLoad) {
+					isSearch = true;
+  				$find.blur();
+  				$key.blur();
+  				$.isp['ajax']({
+  					url: '//wawa.fm/cucc/v1/unicom/track/list',
+  					type: "POST",
+  					data: { page: 1, size: 50, keys: 'a.songname', and: "a.a34=1,a.a40=1", value:$key.val() },
+  					beforeSend: function(){
+  							isLoad = true;
+  							$filter_info.html('<div class="yyloader"><span></span><span></span><span></span><img src="http://up.wawa.fm/21,019486d41d666e"/></div>')},
+  					success: function(data){
+							if (data['code'] == 1 && data['data'].length > 0) {
+                  setList(data['data'], $filter_info);
+              } else {
+              	$filter_info.html('<p style = "text-align:center;margin-top:30px;font-size:12px;color:#9b9b9b;">对不起，系统未搜索到相关彩铃</p>');
+              }
+  					},
+  					complete: function() {
+  						isLoad = false;
+  					}
+  				})
+  			}
+  			return false
+  		})
+			.on("focus", "#key", function(event) {
+  			$('.icon-search').css("opacity","1");
+  			$('.search').css("opacity","1");
+  			if ($key.val()) {
+  				$find.css("opacity","1");
+  			} else {
+  				$find.css("opacity","0.3");
+  			}
+  			return false
+  		})
+  		.on("blur", "#key", function() {
+  			if (!$key.val()) {
+  				$('.icon-search').css("opacity","0.3");
+  				$('.search').css("opacity","0.3");
+  			}
+  			return false
+  		})
+  		.on("input", "#key", function() {
+  			if ($key.val()) {
+  				$find.css("opacity","1");
+  			} else {
+  				$find.css("opacity","0.3");
+  			}
+  			return false
+  		})
+  		.on("tap", ".my_set_ring", function() {
+  			com_tid = $(this).attr("tid");
+  			com_songname = $(this).attr("songname");
+  			$('.change_ring').css('display','block');
+  			return false
+  		})
+  		.on('tap', '.list_states', function() { //get
+  			var that = $(this),
+            url = that.attr("file"),
+            rid = that.attr("rid");
+        if (url) { //有歌曲
+       	    send_pause_app(); //暂停app内播放
+       	    if (that.hasClass('curPlayer')) {
+       	        if (audio.paused) {
+       	        	$('.curPlayer').find('.icon-audio-play').removeClass("icon-audio-play").addClass("icon-pause");
+       	        	$('.curPlayer>i.icon-pause').css('margin-right','14px');
+       	        	audio.play()
+       	        } else {
+       	        	audio.pause()
+       	        	$('.curPlayer').find('.icon-pause').removeClass("icon-pause").addClass("icon-audio-play");
+              		$('.curPlayer>i.icon-audio-play').css('margin-right','10px');
+       	        }
+       	    } else {
+       	      	$.yy['alert']({icon: '', word: '即将播放...'});
+       	    		audioTip();
+       	        that.find('.icon-audio-play').removeClass("icon-audio-play").addClass("icon-pause");
+       	        that.addClass('curPlayer');
+       	      	$('.curPlayer>i.icon-pause').css('margin-right','14px');
+       	      	audio.src = url;
+       	      	audio.play();
+       	    }
+       	} else { //无歌曲，需要请求
+       	    audio.src = "../img/app/no.mp3";
+       	    audio.play();
+       	    getUrl(rid, function(url) {
+								$.yy['alert']({icon: '', word: '即将播放...'});
+       	        if (url) {
+       	            that.attr("file", url);
+       	            send_pause_app(); //暂停app内播放
+       	            audioTip();
+       	    				that.find('.icon-audio-play').removeClass("icon-audio-play").addClass("icon-pause");
+       	    				that.addClass('curPlayer');
+       	   				$('.curPlayer>i.icon-pause').css('margin-right','14px');
+       	            audio.src = url;
+       	            audio.play();
+       	        } else {
+       	            $.yy['alert']({ icon: 'icon-fail', word: '暂无该试听音源' });
+       	            audioTip();
+       	        }
+       	    });
+       	}
+       	 return false;
+  		})
+  		.on('tap', '.home_ring', function() { //get
+  			var that = $(this),
+  					url = that.attr("file"),
+  					rid = that.attr("rid");
+  			if (url) {
+ 					send_pause_app();
+  				audioTip();
+  				if (audio.src === url) {
+  					if (audio.paused) {
+       	  		that.removeClass("icon-play-button").addClass("icon-pause-button");
+       	  		audio.play();
+  					} else {
+       	  		audio.pause();
+  						that.removeClass("icon-pause-button").addClass("icon-play-button");
+  					}
+       	    
+  				} else {
+  					audio.src = url;
+  					that.removeClass("icon-play-button").addClass("icon-pause-button");
+       	  	audio.play();
+  				}
+  				
+  			} else {
+  				if (rid) {
+  					getUrl(rid, function(url) {
+       		      if (url) {
+       		          that.attr("file", url);
+       		          send_pause_app();
+       		          audioTip();
+       		  				that.removeClass("icon-play-button").addClass("icon-pause-button");
+       		          audio.src = url;
+       		          audio.play();
+       		      } else {
+       		          $.yy['alert']({ icon: 'icon-fail', word: '暂无该试听音源' });
+       		          audioTip();
+       		      }
+       		  });
+  				} else {
+       		    $.yy['alert']({ icon: 'icon-fail', word: '暂无该试听音源' });
+       		    audioTip();
+       		}
+  			}
+  				
+  			return false
+  		})
+  		.on('tap', '.list_detail', function() { //get
+  			var query = $.yy['parseJson'](location.search.substr(1));
+        query['cucc'] = $(this).attr("cucc");
+        location.href = "?" + $.yy['parseStr'](query) + '#!order/ringInfo';
+        return false;
+  		})
+  		.on("tap", "#sbcode", function() {
+          var $sbphone = $("#sbphone"),
+              phone = $sbphone.val();
+          if (!$(this).hasClass('disabled') && phone != '') {
+              $sbphone.blur();
+              $("#sbkey").blur();
+              sendMpayCode(phone, $('#sbcode'), $('#sbkey'));
+          }
+          return false;
+      })
+      .on("tap", "#mbcode", function() {
+          var $mbphone = $("#mbphone"),
+              phone = $mbphone.val();
+          if (!$(this).hasClass('disabled') && phone != '') {
+              $mbphone.blur();
+              $("#mbkey").blur();
+              sendMpayCode(phone, $('#mbcode'), $('#mbkey'));
+          }
+          return false;
+      })
+      .on("keyup", "#sbphone", function() { //..
+          if (/^(130|131|132|155|156|185|186|145|176|170)[0-9]{8}$/.test($(this).val())) {
+              $("#sbcode").removeClass('disabled');
+          } else {
+              $("#sbcode").addClass('disabled');
+          }
+      })
+      .on("keyup", "#mbphone", function() {
+          if (/^(130|131|132|155|156|185|186|145|176|170)[0-9]{8}$/.test($(this).val())) {
+              $("#mbcode").removeClass('disabled');
+          } else {
+              $("#mbcode").addClass('disabled');
+          }
+      })
+      .on("keyup", "#mbkey", function() {
+          if ($(this).val().length == 6) {
+              $("#mPayOrder").removeClass('disabled');
+              $("#oPayOrder").removeClass('disabled');
+          }
+      })
+      .on("keyup", "#sbkey", function() { //..
+          if ($(this).val().length == 6) {
+              $("#sPayOrder").removeClass('disabled');
+          }
+      })
+      .on("tap", "#oPayOrder", function() {
+      		var $obphone = $("#obphone"),
+              $obkey = $("#obkey"),
+              phone = $obphone.val(),
+              code = $obkey.val();
+          if (!$(this).hasClass('disabled') && phone != '' && code != '') {
+              $obphone.blur();
+              $obkey.blur();
+              login(phone, code);
+          }
+          return false;
+      })
+      .on("tap", "#mPayOrder", function() {
+          submitMonth($("#mbphone"),$("#mbkey"));
+          return false
+      })
+      .on("tap", "#sPayOrder", function() {
+                var $sbphone = $("#sbphone"),
+                    $sbkey = $("#sbkey"),
+                    dom = '';
+                phone = $sbphone.val();
+                code = $sbkey.val();
+                if(!user['phone']){
+                	if (!$(this).hasClass('disabled') && phone != '' && code != '') {
+                			login(phone, code, function() {
+                					$sbphone.blur();
+                    			$sbkey.blur();
+                    			if (user['isOver']) {
+		                        resPage('error', '设置失败', '您的铃音库已经达到上限10首，可进入我的彩铃页面管理自己的铃音库。', [
+		                            { text: '管理彩铃', url: '#!index/user' }, { text: '返回首页', url: '#!index/home' }
+		                        ]);
+		                    	} else {
+		                    		isBase(user['token'], function(res) {
+                        			if (res) {
+                            			dom = '<div class="isp_tit">'+
+																			'<h1 id="ring" class="change_choose" ><p>My Ring-back</p><p>业务</p></h1>'+
+																	'</div>'+
+																	'<div class="ring_de">'+
+																		'<div class="isp_cont">'+
+																			'<div class="ring_buy_type" style="margin-top: 0;">'+
+																				'<p  class="progress">尊敬的 ' + phone + ' 用户，您正在订购彩铃《' + crbt_songname + '》，资费：2元/首。	</p>'+
+																				'<img class="pro_phone" src="../img/yuyin/isp/Group 2.png">'+
+																				'<a class="pro_buy" id="sure_buy">立即订购</a>'+
+																			'</div>'+
+																		'</div>'+
+																		'<div class="line"></div>'+
+																		'<div class="ring_tip_2"> <p>1、由广州市伟图信息技术有限公司为您提供移动信息服务</p></div>'+
+ 																	'</div>'
+                          			$taskInfo.html(dom);
+                          			location.href="#!order/taskInfo"
+                        			} else { 
+                            			$.yy['alert']({ icon: 'icon-close', word: '请确保您已开通彩铃功能' });
+                        			}
+                    				})
+		                    	}
+                			})
+                    
+                	}
+                }
+                
+                return false;
+      })
+      .on("keyup", "#obphone", function() { //可以登录
+          if (/^(130|131|132|155|156|185|186|145|176|170)[0-9]{8}$/.test($(this).val())) {
+              $("#obcode").removeClass('disabled');
+          } else {
+              $("#obcode").addClass('disabled');
+          }
+      })
+      .on("keyup", "#obkey", function() {
+          if ($(this).val().length == 6) {
+              $("#oPayOrder").removeClass('disabled');
+              $("#oPayOrder").removeClass('disabled');
+          }
+      })
+      .on("tap", "#obcode", function() {
+          var $obphone = $("#obphone"),
+              phone = $obphone.val();
+          if (!$(this).hasClass('disabled') && phone != '') {
+              $obphone.blur();
+              $("#obkey").blur();	
+              sendMpayCode(phone, $('#obcode'), $('#obkey'));
+          }
+          return false;
+      })
+      .on("tap", "#res_btns>a", function() {
+          $res_page.hide();
+          location.hash = '';
+          Q.go($(this).attr('href'));
+          return false;
+      })
+      .on("tap", "#sure_order", function() {
+          order(user['token'], function() {
+              setRing(crbt_0id, crbt_contentid, user['token'], function() {
+                  setCurRing(crbt_0id, user['token']);
+                  var domSong = '';
+                  if (crbt_0id) {
+                  	domSong ='，并将《' + crbt_songname + '》加入您的铃音库并设置为当前彩铃。';
+                  }
+                  resPage('success', '设置成功', '您开通的挖哇炫铃包月业务已成功受理'+domSong+'', [
+                      { text: '返回首页', url: '#!index/home' }, { text: '管理彩铃', url: '#!index/user' }
+                  ]);
+                  getUserInfo(function() { setInfo($home_ring_info) });
+              });
+          });
+          return false;
+      })
+      .on("tap", "#clearMonth", function() {
+      	$.yy['confirm']({
+            desc: '取消彩铃包月业务后您将不再享有免费设置彩铃的会员权益，您确认要取消吗？',
+            funClass: 'sure_td',
+            btnSureText: '确认取消',
+            btnCancelText: '我再想想'
+        });
+        return false
+      })
+      .on("tap", ".cancel", function() {
+      	$(".clearbox").remove();
+      	$(".change_ring").css('display','none');
+      	return false
+      })
+      .on("tap", ".demask", function() {
+      	$(".clearbox").remove();
+      	return false
+      })
+      .on("tap", ".sure_td", function() {
+      	$(".clearbox").remove();
+      	$.yy['alert']({ icon: '', word: '正在取消...' });
+        TDProduct(user['token'], function() {
+           resPage('success', '取消成功', '您的申请取消挖哇炫铃包月业务已成功受理，请留意业务通知短信。', [
+                { text: '返回首页', url: '#!index/home' }
+            ]);
+            getUserInfo(function() { setInfo($home_ring_info) });
+        });
+        return false;
+      })
+      .on("tap", "#setRing", function() {
+      	if (user['phone']) {
+                    if (user['isOver']) {
+                        resPage('error', '设置失败', '您的铃音库已经达到上限10首，可进入我的彩铃页面管理自己的铃音库。', [
+                            { text: '管理彩铃', url: '#!index/user' }, { text: '返回首页', url: '#!index/home' }
+                        ]);
+                    } else {
+                        setRing(crbt_0id, crbt_contentid, user['token'], function() {
+                            resPage('success', '设置成功', '已经将《' + crbt_songname + '》加入您的铃音库并设置为当前彩铃。', [
+                                { text: '返回首页', url: '#!index/home' }, { text: '管理彩铃', url: '#!index/user' }
+                            ]);
+                        });
+                    }
+        }
+      	return false
+      })
+      .on("tap", "#set_my_ring", function() {
+          $(".clearbox").remove();
+          $.yy['confirm']({
+              desc: '是否确认将《' + com_songname + '》设为当前彩铃吗？',
+              funClass: 'sure_set',
+              btnSureText: '确认设置',
+              btnCancelText: '我再想想'
+          });
+          return false;
+      })
+      .on("tap", "#delete_my_ring", function() {
+      	 	$(".clearbox").remove();
+          $.yy['confirm']({
+              desc: '是否确认将《' + com_songname + '》从您的铃音库里移除吗？',
+              funClass: 'sure_delete',
+              btnSureText: '确认移出',
+              btnCancelText: '我再想想'
+          });
+          return false;
+      })
+      .on("tap", ".sure_set", function() {
+          $(".clearbox").remove();
+          $.yy['alert']({ icon: '', word: '正在设置...', time: '4000' });
+          setCurRing(com_tid, user['token'], function() {
+              $.yy['alert']({ icon: 'icon-success', word: '设置成功' });
+          })
+          $(".change_ring").css('display','none');
+          return false;
+      })
+      .on("tap", ".sure_delete", function() {
+      		$(".clearbox").remove();
+          $.yy['alert']({ icon: '', word: '正在删除...', time: '5000' });
+          delRing(com_tid, user['token'], function() {
+              $.yy['alert']({ icon: 'icon-success', word: '删除成功' });
+              getUserList(user['token']);
+              isOver(user['token'], function(res) {
+                  user['isOver'] = res;
+              });
+          })
+          $(".change_ring").css('display','none');
+          return false;
+      })
+      .on("tap", "#logout", function() {
+          $(".clearbox").remove();
+          $.yy['confirm']({
+              desc: '<center>您确认要退出该账号吗？</center>',
+              funClass: 'sure_logout',
+              btnSureText: '确认退出',
+              btnCancelText: '我再想想'
+          });
+          return false;
+      })
+      .on("tap", ".sure_logout", function() {
+          $(".clearbox").remove();
+          $("#obphone").val('');
+          $("#obkey").val('');
+          localStorage.removeItem('cucc');
+          getUserInfo(function() { setInfo($home_ring_info); });
+          return false;
+      })
+      .on("tap", ".change_ring", function() {
+      	$('.change_ring').hide();
+      	return false
+      })
+      .on("tap", "#detail_none", function() {
+      	window.history.back();
+      	return false
+      })
+      .on("tap", "#sure_buy", function() {
+      	buyRing(user['token'], function() {
+            resPage('success', '设置成功', '已经将《' + crbt_songname + '》加入您的铃音库并设置为当前彩铃。', [
+                { text: '返回首页', url: '#!index/home' }, { text: '管理彩铃', url: '#!index/user' }]);
+            setCurRing(crbt_2id, user['token']);
+        });
+        return false;
+      })
+      .on("tap", "#first_buy", function() {
+      		if (user['isBase'] && user['is4G']) {
+              dom = '<div class="isp_tit">'+
+									'<h1 id="ring" class="change_choose" ><p>My Ring-back</p><p>业务</p></h1>'+
+							'</div>'+
+							'<div class="ring_de">'+
+								'<div class="isp_cont">'+
+									'<div class="ring_buy_type" style="margin-top: 0;">'+
+										'<p  class="progress">尊敬的 ' + user['phone'] + ' 用户，您正在订购彩铃《' + crbt_songname + '》，资费：2元/首。	</p>'+
+											'<img class="pro_phone" src="../img/yuyin/isp/Group 2.png">'+
+											'<a class="pro_buy" id="sure_buy">立即订购</a>'+
+										'</div>'+
+									'</div>'+
+									'<div class="line"></div>'+
+									'<div class="ring_tip_2"> <p>1、由广州市伟图信息技术有限公司为您提供移动信息服务</p></div>'+
+ 								'</div>'
+            		$taskInfo.html(dom);
+            		location.href="#!order/taskInfo"
+          } else {
+             	$.yy['alert']({ icon: 'icon-close', word: '请确保您已开通彩铃功能' });
+          }
+          return false
+      })
+      .on("tap", "#month_buy", function() {
+          var dom, desc = '';
+          if (!user['isBase'] && !user['is4G']) {
+              desc = '<br/>您暂未开通彩铃基础功能，为了保证能正常使用彩铃，我们将一并开通该功能（5元/月）。';
+          }
+          dom = '<div class="isp_tit">'+
+											'<h1 id="ring" class="change_choose" ><p>My Ring-back</p><p>业务</p></h1>'+
+									'</div>'+
+									'<div class="ring_de">'+
+										'<div class="isp_cont">'+
+											'<div class="ring_buy_type" style="margin-top: 0;">'+
+												'<p  class="progress">尊敬的 ' + user['phone'] + ' 用户，您正在开通挖哇炫铃包月业务，资费：5元/月，开通后可免费设置彩铃。' + desc + '</p>'+
+												'<img class="pro_phone" src="../img/yuyin/isp/Group 2.png">'+
+												'<a class="pro_buy" id="sure_order">立即订购</a>'+
+											'</div>'+
+										'</div>'+
+										'<div class="line"></div>'+
+									'<div class="ring_tip_2"> <p>1、由广州市伟图信息技术有限公司为您提供移动信息服务</p><p>2、业务退订方式： 进入「我的」页面 - 点击「取消包月」 - 完成退订</p> </div>'+
+ 								'</div>'
+          $taskInfo.html(dom);
+          location.href="#!order/taskInfo"
+          return false
+      })
+      .on("tap", "#buyMonth", function() {
+      		var dom, desc = '';
+          if (!user['isBase'] && !user['is4G']) {
+              desc = '<br/>您暂未开通彩铃基础功能，为了保证能正常使用彩铃，我们将一并开通该功能（5元/月）。';
+          }
+          dom = '<div class="isp_tit">'+
+											'<h1 id="ring" class="change_choose" ><p>My Ring-back</p><p>业务</p></h1>'+
+									'</div>'+
+									'<div class="ring_de">'+
+										'<div class="isp_cont">'+
+											'<div class="ring_buy_type" style="margin-top: 0;">'+
+												'<p  class="progress">尊敬的 ' + user['phone'] + ' 用户，您正在开通挖哇炫铃包月业务，资费：5元/月，开通后可免费设置彩铃。' + desc + '</p>'+
+												'<img class="pro_phone" src="../img/yuyin/isp/Group 2.png">'+
+												'<a class="pro_buy" id="sure_order">立即订购</a>'+
+											'</div>'+
+										'</div>'+
+										'<div class="line"></div>'+
+									'<div class="ring_tip_2"> <p>1、由广州市伟图信息技术有限公司为您提供移动信息服务</p><p>2、业务退订方式： 进入「我的」页面 - 点击「取消包月」 - 完成退订</p> </div>'+
+ 								'</div>'
+          $taskInfo.html(dom);
+          location.href="#!order/taskInfo"
+          return false
+      })
+      
+  		audio.addEventListener('ended', function() {
+  			audioTip();
+  		})
+  		function ispAjax(category, $target) { //get
+				$.isp['ajax']({
+					url: "//wawa.fm/custom/v1/operator/list",
+					type: 'POST',
+					data: {
+						size:50,
+						page:1,
+						and:'category='+category,
+						order:'asc',
+						by:'order'
+					},
+					beforeSend: function() {
+            $target.html('<div class="yyloader"><span></span><span></span><span></span><img src="http://up.wawa.fm/21,019486d41d666e"/></div>');
+          },
+					success: function(data) {
+						if (data['code'] == 1 && data['data'].length > 0) {
+                setList(data['data'], $target);
+            }
+					},
+					complete: function() {
+            $("#loading").remove();
+						$loading.css("display","none");
+          }
+				})
+			}
+			function setInfo($target, type) { //get
+				if (cucc) {
+					$.isp['ajax']({
+                    url: '//wawa.fm/cucc/v1/cucc/trackInfo',
+                    type: "POST",
+                    data: { id: cucc },
+                    beforeSend: function() {
+                    		isLoad = true;
+                        $target.html('<div class="yyloader"><span></span><span></span><span></span><img src="http://up.wawa.fm/21,019486d41d666e"/></div>');
+                    },
+                    success: function(data) {
+                        if (data['code'] == 1) {
+                            var ringdom, paydom, data = data['data'];
+                          if (data.length > 0) {
+                                crbt_songname = data[0]['songname'];
+                                crbt_contentid = data[0]['content_id'];
+                                for (var i = 0; i < data.length; i++) {
+                                    if (data[i]['price'] == 0) {
+                                        crbt_0id = data[i]['id'];
+                                    }
+                                    if (data[i]['price'] == 200) {
+                                        crbt_2id = data[i]['id'];
+                                    }
+                                }
+ 														ringdom = '<img class="ring_cover" id="home_ring_cover" src="http://up.wawa.fm/18,015414261e53c7?width=500">'+
+																'<img class="ring_cover_bg" src="../img/yuyin/isp/ring_buttom_bg.png">'+
+																'<i class="icon-play-button home_ring" rid="' + data[0]['copyright']+'"  file="http://a.10155.com'+ data[0]['url']+'"></i>'+
+																'<div class="ring_name">'+
+																	'<h4 class="ellipsis">'+data[0]['singer']+'</h4>'+
+																	'<h2 class="bolder">'+data[0]['songname']+'</h2>'+
+																'</div>';
+                            $target.html(ringdom);
+                            if (user['phone']) { //已经登录过了
+                                if (user['isOpen']) { //开通包月
+                                	if (crbt_0id == '' && crbt_2id != ''){
+                                		paydom = ('<a id="first_buy" style="width: 99%;display:block;margin:auto;">单首订购（2元/首）</a>');
+                                	} else {
+                                		paydom = ('<a id="setRing" style="width: 99%;display:block;margin:auto;">免费设为彩铃</a>');
+                                	}                                   
+                                		$rm_ring_tip.html('');
+                                } else {
+                                	if (crbt_0id != '' && crbt_2id != '') {
+                            				paydom = ('<a id="first_buy">单首订购</a><a id="month_buy">包月订购</a> ');
+                                		$rm_ring_tip.html('<p>单首订购的咨询费为 <strong>2元/首</strong>；包月订购则为 <strong>5元/月</strong>，在期限内可免费不限次数的更换所有彩铃</p>');
+                            			} else if (crbt_0id != '' && crbt_2id == '') {
+                            				paydom = ('<a id="month_buy" style="width: 99%;display:block;margin:auto;">包月订购（5元/月）</a>');
+                            				$rm_ring_tip.html('<p>包月订购为 <strong>5元/月</strong>，在期限内可免费不限次数的更换所有彩铃</p>');
+                            			} else if (crbt_0id == '' && crbt_2id != '') {
+                            				paydom = ('<a id="first_buy" style="width: 99%;display:block;margin:auto;">单首订购（2元/首）</a>');
+                            				$rm_ring_tip.html('<p>单首订购的咨询费为 <strong>2元/首</strong>；</p>');
+                            			}
+                                };
+                            		$change_set.html(paydom);
+
+                            } else { //没有登录过
+                            	if (crbt_0id != '' && crbt_2id != '') {
+                            		paydom = ('<a href="#!order/singleInfo">单首订购</a><a href="#!order/monthInfo">包月订购</a> ');
+                                $rm_ring_tip.html('<p>单首订购的咨询费为 <strong>2元/首</strong>；包月订购则为 <strong>5元/月</strong>，在期限内可免费不限次数的更换所有彩铃</p>');
+                            	} else if (crbt_0id != '' && crbt_2id == '') {
+                            		paydom = ('<a href="#!order/monthInfo" style="width: 99%;display:block;margin:auto;">包月订购（5元/月）</a>');
+                            		$rm_ring_tip.html('<p>包月订购为 <strong>5元/月</strong>，在期限内可免费不限次数的更换所有彩铃</p>');
+                            	} else if (crbt_0id == '' && crbt_2id != '') {
+                            		paydom = ('<a href="#!order/singleInfo" style="width: 99%;display:block;margin:auto;">单首订购（2元/首）</a>');
+                            		$rm_ring_tip.html('<p>单首订购的咨询费为 <strong>2元/首</strong>；</p>');
+                            	}
+                                $change_set.html(paydom);
+                            }
+
+                          } else {
+                          	if (type === 'ringInfo') {
+                            	$target.html('<div class="not_ring"><h1 class="bolder">中国电信暂无该彩铃</h1></div>');
+                            	$change_set.html('<a id="detail_none" style="width: 99%;display:block;margin:auto;">暂无该彩铃，返回</a>');
+                            } else if(type === 'home' || !type) {
+                            	$target.html('<div class="not_ring"><h1 class="bolder">中国电信暂无该彩铃</h1><h2>为你推荐以下彩铃</h2></div>');
+                            	$change_set.html('<a style="width: 99%;display:block;margin:auto;">未获取彩铃</a>');
+                            } else {
+                            	$target.html('<div class="not_ring"><h1 class="bolder">中国电信暂无该彩铃</h1><h2>为你推荐以下彩铃</h2></div>');
+                            }
+                          }
+
+                        } else {
+                            if (type === 'ringInfo') {
+                            	$target.html('<div class="not_ring"><h1 class="bolder">中国联通暂无该彩铃</h1></div>');
+                            	$change_set.html('<a id="detail_none" style="width: 99%;display:block;margin:auto;">暂无该彩铃，返回</a>');
+                            } else {
+                            	$target.html('<div class="not_ring"><h1 class="bolder">中国联通暂无该彩铃</h1><h2>为你推荐以下彩铃</h2></div>');
+                            }
+
+                        }
+                    },
+                    complete: function() {isLoad = false; }
+          })
+				} else {
+					if (type === 'ringInfo') {
+							$target.html('<div class="not_ring"><h1 class="bolder">中国电信暂无该彩铃</h1></div>');
+              $change_set.html('<a id="detail_none" style="width: 99%;display:block;margin:auto;">暂无该彩铃，返回</a>');
+          } else if(type === 'home' || !type) {
+              $target.html('<div class="not_ring"><h1 class="bolder">中国电信暂无该彩铃</h1><h2>为你推荐以下彩铃</h2></div>');
+              $change_set.html('<a style="width: 99%;display:block;margin:auto;">未获取彩铃</a>');
+          } else {
+              $target.html('<div class="not_ring"><h1 class="bolder">中国电信暂无该彩铃</h1><h2>为你推荐以下彩铃</h2></div>');
+          }
+				}
+			}
+			function setList(data, $target) { //get
+				var mainDom = '';
+				for(var i = 0; i < data.length;  i++){
+					mainDom += '<li class="list_re list_detail" cucc="' + data[i]['copyright'] + '">'+
+											'<div class="list_info">'+
+												'<h3 class="ellipsis">'+data[i]['songname']+'</h3>'+
+												'<h3 class="ellipsis">'+ (data[i]['singer'] || data[i]['en_name'] || '') +'</h3>'+
+											'</div>'+
+											'<div class="list_states" rid="'+ data[i]['copyright'] +'" file="http://a.10155.com'+( data[i]['file'] || data[i]['url'] )+'">'+
+												'<i class="icon-audio-play icon_state"></i>'+
+												'<span>试听</span>'+
+											'</div>'+
+										'</li>'
+				};
+				$target.html(mainDom);
+			}
+			function getUrl(rid, callback) { //get
+            $.isp['ajax']({
+                url: '//wawa.fm/cucc/v1/ring/info',
+                type: "GET",
+                data: { tone_id: rid },
+                success: function(data) {
+                    callback != undefined && callback('http://a.10155.com' + data['a35']);
+                }
+            });
+      }
+  		function audioTip() { //恢复列表歌曲、页面歌曲样式
+  			$('.curPlayer').find('i').removeClass("icon-pause").addClass("icon-audio-play");
+       	$('.curPlayer>i.icon-audio-play').css('margin-right','10px');
+       	$('.list_states').removeClass('curPlayer');
+       	$('.ring_info').find('i').removeClass("icon-pause-button").addClass("icon-play-button");
+  		}
+  		function login(callNumber, verifyCode, callback) { //登录
+            $.ajax({
+                url: "http://120.25.88.27:8088/cucc/v1/cucc/call",
+                data: { url: "/v1/token/codeAuthToken", callNumber: callNumber, verifyCode: verifyCode, category: 2 },
+                type: "GET",
+                beforeSend: function() {
+                    $.yy['alert']({ icon: '', word: '正在登录...', time: '5000' });
+                },
+                success: function(data) {
+                    if (data['returnCode'] == "000000") {
+                        $("#alert").remove();
+                        localStorage.setItem('cucc', JSON.stringify({ uid: 0, phone: callNumber, token: data['token']['access_token'] }));
+                        getUserInfo(function() {
+                            setInfo($home_ring_info);
+                            callback != undefined && callback();
+                        });
+                    } else {
+                        $.yy['alert']({ icon: 'icon-close', word: data['description'] });
+                    }
+                }
+            });
+            return false;
+      }
+  		function getUserInfo(callback) { //获取用户信息
+           	$meInfo.hide();
+            $login.hide();
+            user = { phone: '', isOpen: false, isBase: false, is4G: false, isOver: false, uid: 0, token: '' };
+            if (localStorage['cucc'] != undefined) {
+                user = $.extend(user, JSON.parse(localStorage.getItem('cucc')));
+                console.log('已登录：' + user['phone']);
+                var i = 0;
+                isOpen(user['token'], function(res) {
+                    user['isOpen'] = res;
+                    if (res) {
+                        $mpybtn.attr("id", "clearMonth").html('取消包月');
+                    } else {
+                        $mpybtn.attr("id", "buyMonth").html('开通包月');
+                    }
+                    if ((i++) == 3) { callback != undefined && callback();} //验证
+                });
+                is4G(user['token'], function(res) {
+                    user['is4G'] = res;
+                    if ((i++) == 3) { callback != undefined && callback(); }
+                });
+                isOver(user['token'], function(res) {
+                    user['isOver'] = res;
+                    if ((i++) == 3) { callback != undefined && callback(); }
+                });
+                isBase(user['token'], function(res) {
+                    user['isBase'] = res;
+                    if ((i++) == 3) { callback != undefined && callback(); }
+                });
+                getUserList(user['token']);
+                $admin_phone.html(user['phone']);
+                $meInfo.show();
+            } else {
+                console.log('未登录');
+                callback != undefined && callback();
+                $login.show();
+            }
+            return false;
+      }      
+      function sendMpayCode(phone,$target1,$target2) { //发送登录、订购、包月、单曲  验证码  get
+            var i = 60,
+                $mbcode = $target1,
+                $mbkey = $target2;
+            $.ajax({
+                url: 'http://120.25.88.27:8088/cucc/v1/cucc/call',
+                type: "GET",
+               	data: { url: "/v1/verifyCode/sendLoginCode", callNumber: phone, category: 2 },
+                beforeSend: function() {
+                    $mbcode.addClass('disabled');
+                    codeInterval = setInterval(function() {
+                        if (i > 1) {
+                            i = i - 1;
+                            $mbcode.html("00:" + (i.toString().length == 1 ? "0" + i : i));
+                        } else {
+                            i = 60;
+                            $mbcode.html("再次获取").removeClass('disabled');
+                            clearInterval(codeInterval);
+                        }
+                    }, 1000);
+                    $.yy['alert']({ icon: 'icon-success', word: '正在发送...' });
+                },
+                success: function(data) {
+                    console.log('获取单次验证码：' + data);
+                    if (data['returnCode'] == "000000") {
+                        $mbkey.focus();
+                        $.yy['alert']({ icon: 'icon-success', word: '验证码已发送' });
+                    } else {
+                    		$.yy['alert']({ icon: 'icon-close', word: data['res_message'] });
+                    }
+                }
+            });
+      }
+      function isOpen(access_token, callback) { //是否开通包月 // productId=0000002491 
+            var res = false;
+            $.ajax({
+                url: 'http://120.25.88.27:8088/cucc/v1/cucc/call',
+                type: "GET",
+                data: { url: "/v1/product/qrySubedProducts", access_token: access_token, category: 2 },
+                success: function(data) {
+                		if (data['returnCode'] == "000000" && data['subedProducts'].length > 0) {
+                        for (var i = 0; i < data['subedProducts'].length; i++) {
+                            if (data['subedProducts'][i]['productId'] == '0000002491') {
+                                if (data['subedProducts'][i]['unSubscribeable'] == true) {
+                                    if (data['subedProducts'][i]['subTime'] > data['subedProducts'][i]['unSubTime']) {
+                                        res = true;
+                                    }
+                                } else {
+                                    res = true;
+                                }
+                                break;
+                            }
+                        }
+                    }
+                },
+                complete: function() {
+                    console.log('是否包月用户：' + res);
+                    callback != undefined && callback(res);
+                }
+            });
+      }
+      function is4G(access_token, callback) { //是否4G用户  //ok
+            var res = false;
+            $.ajax({
+                url: "http://120.25.88.27:8088/cucc/v1/cucc/call",
+                data: { url: "/v2/token/queryUserInfo", access_token: access_token, category: 2 },
+                type: "GET",
+                success: function(data) {
+                    if (data['returnCode'] == "000000" && data['netType'] == "4") {
+                        res = true;
+                    }
+                },
+                complete: function() {
+                    console.log('是否4G用户：' + res);
+                    callback != undefined && callback(res);
+                }
+            });
+            return false;
+      }
+      function isBase(access_token, callback) { //是否彩铃用户 //ok
+            var res = false;
+            $.ajax({
+                url: "http://120.25.88.27:8088/cucc/v1/cucc/call",
+                data: { url: "/v1/ring/qryUserBasInfo", access_token: access_token, category: 2 },
+                type: "GET",
+                success: function(data) {
+                    if (data['returnCode'] == "000000" && $.inArray(data['userInfo']['userStatus'], ["0", "2", "4"]) != -1) {
+                        res = true;
+                    }
+                },
+                complete: function() {
+                    console.log('是否彩铃用户：' + res);
+                    callback != undefined && callback(res);
+                }
+            });
+            return false;
+      }
+      function isOver(access_token, callback) { //是否超过10首  //ok
+            var res = false;
+            $.ajax({
+                url: "http://120.25.88.27:8088/cucc/v1/cucc/call",
+                data: { url: "/v1/ring/qryUserTone", access_token: access_token, showNum: 30, pageNo: 0, category: 2 },
+                type: "GET",
+                success: function(data) {
+                    if (data['returnCode'] == "000000" && data['totalCount'] >= 10) {
+                        res = true;
+                    }
+                },
+                complete: function() {
+                    console.log('是否超过10首彩铃：' + res);
+                    callback != undefined && callback(res);
+                }
+            });
+            return false;
+      }      
+      function getUserList(access_token) { //查询个人铃音 //ok
+            $.ajax({
+                url: 'http://120.25.88.27:8088/cucc/v1/cucc/call',
+                type: "GET",
+                data: { url: "/v1/ring/qryUserTone", access_token: access_token, showNum: 30, pageNo: 0, category: 2 },
+                beforeSend: function() {
+                    $ulist_box.html('<div id="user_loading" class="yyloader"> <span></span> <span></span> <span></span> <img src="http://up.wawa.fm/21,019486d41d666e"/> </div>');
+                },
+                success: function(data) {
+                    //console.log('查询个人铃音：'+data);
+                    var dom = '';
+                    if (data['returnCode'] == "000000") {
+                        var list = data['ringConciseInfos'],
+                            len = data['totalCount'],
+                            count = 0;
+                        if (len >= 0) {
+                            for (var i = 0; i < len; i++) {
+                                if (user['isOpen'] || (!user['isOpen'] && list[i]['ringPrice'] == "2000")) {
+                                		dom += 	'<li class="list_re" cucc="' + list[i]['ringID'] + '">'+
+																				'<div class="list_info my_set_ring" songname='+list[i]['ringName']+' tid="' +list[i]['ringID']+ '">'+
+																					'<h3 class="ellipsis">'+list[i]['ringName']+'</h3>'+
+																					'<h3 class="ellipsis">'+list[i]['ringSinger']+'</h3>'+
+																				'</div>'+
+																				'<div class="list_states" rid="' + list[i]['ringID'] + '"  file="">'+
+																						'<i class="icon-audio-play icon_state"></i>'+
+																						'<span>试听</span>'+
+																					'</div>'+
+																				'</li>';
+                                    count++;
+                                }
+                            }
+                        }
+                        $ulist_num.html(count);
+                    } else {
+                       dom = '<p class="ring_none">暂无彩铃</p>';
+                    }
+                    $ulist_box.html(dom);
+                },
+                complete: function() {
+                	$("#user_loading").remove();
+                }
+            });
+            return false;
+      }
+      function delRing(tid, access_token, callback) { //删除铃音  //ok
+            $.ajax({
+                url: "http://120.25.88.27:8088/cucc/v1/cucc/call",
+                data: { url: '/v1/ring/delTone', access_token: access_token, toneType: "1", toneID: tid, category: 2 },
+                type: 'GET',
+                success: function(data) {
+                    if (data['returnCode'] == "000000") {
+                        console.log('删除铃音：' + JSON.stringify(data));
+                        callback != undefined && callback();
+                    } else {
+                        $.yy['alert']({ icon: 'icon-close', word: '网络繁忙' });
+                    }
+                }
+            });
+            return false;
+      }
+      function resPage(type, title, desc, btns) { //开通成功
+            $rpage.hide();
+            $(".clearbox").remove();
+            var btndom = '';
+            for (var i = 0; i < btns.length; i++) {
+                btndom += '<a class="btn mbtn" href="' + btns[i]['url'] + '">' + btns[i]['text'] + '</a>';
+            }
+            $res_btns.html(btndom);
+            if (type=="error") {
+            	$res_icon.removeClass('icon-success icon-info').addClass('icon-close');
+            } else if (type == "success") {
+            	$res_icon.removeClass('icon-close icon-info').addClass('icon-success');
+            } else {
+            	$res_icon.removeClass('icon-close icon-success').addClass('icon-info');
+            }
+            
+            $res_title.html(title);
+            $res_desc.html(desc);
+            $res_page.show();
+            return false;
+      }
+      function setCurRing(tid, access_token, callback) { //设为当前彩铃 //ok
+          	var UserToneSettingInfo = {
+                settingObjType: "1",
+                timeType: "0",
+                startTime: "0",
+                endTime: "0",
+                toneType: "0",
+                toneID: tid
+            }
+            $.ajax({
+            		/*http://120.25.88.27:8088/cucc/v1/cucc/call*/
+                url: "http://120.25.88.27:8088/cucc/v1/cucc/call?operType=1&access_token=" + access_token,
+                data: { url: '/v1/ringSetting/setTone', setting: JSON.stringify(UserToneSettingInfo), category: 2 },
+                type: 'POST',
+                contentType: 'application/x-www-form-urlencoded',
+                success: function(data) {
+                    if (data['returnCode'] == "000000") {
+                        console.log('新增默认铃音：' + JSON.stringify(data));
+                        callback != undefined && callback();
+                    }
+                }
+            });
+      }
+      function buyRing(access_token, callback) { //订购单首彩铃  //ok
+
+            $.ajax({
+                url: 'http://120.25.88.27:8088/cucc/v1/cucc/call',
+                type: "GET",
+                data: { url: '/v1/ring/buyTone', access_token: access_token, toneType: '1', toneID: crbt_2id, sP_ProductID: "7000100301", category: 2 },
+                beforeSend: function() {
+                    $.yy['alert']({ icon: '', word: '正在设置...',time: 4000 });
+                },
+                success: function(data) {
+                    console.log('购买单首彩铃：' + JSON.stringify(data));
+                    if (data['returnCode'] == "000000") {
+            						getUserInfo(function() {setInfo($home_ring_info)});
+                        callback != undefined && callback();
+                    } else if (data['returnCode'] == "400033") {
+                        $.yy['alert']({ icon: 'icon-close', word: '彩铃已订购过' });
+                        window.history.back();
+                    } else {
+                        $.yy['alert']({ icon: 'icon-close', word: data['description'] });
+                        window.history.back();
+                    }
+                }
+            });
+            return false;
+      }
+      function openBase(access_token, callback) { //开通彩铃基础 //ok	
+            $.ajax({
+                url: "http://120.25.88.27:8088/cucc/v1/cucc/call",
+                type: 'GET',
+                data: { url: "/v1/ring/openAccount", access_token: access_token, category: 2 },
+                success: function(data) {
+                    if (data['returnCode'] == "000000") {
+                        console.log('开通彩铃基础功能' + JSON.stringify(data));
+                        callback != undefined && callback();
+                    } else {
+                        $.yy['alert']({ icon: 'icon-close', word: '开通彩铃失败，请重试~' });
+                    }
+                }
+            });
+            return false;
+      }
+      function order(access_token, callback) { //开通(彩铃)+包月+订购
+					$.yy['alert']({ icon: '', word: '正在设置...' });
+          if (!user['isBase']) {
+              openBase(user['token'], function() {
+                  openProduct(user['token'], user['phone'], function() {
+                      callback != undefined && callback();
+                  });
+              });
+          } else {
+              openProduct(user['token'], user['phone'], function() {
+                  callback != undefined && callback();
+              });
+          }
+          return false
+      }
+      function TDProduct(access_token, callback) { //退订
+          $.ajax({
+                url: "http://120.25.88.27:8088/cucc/v1/cucc/call",
+                data: { url: '/v1/product/unSubProduct', access_token: access_token, productId: '0000002491', category: 2 },
+                type: 'GET',
+                success: function(data) {
+                    if (data['returnCode'] == "000000") {
+                        console.log('退订包月：' + JSON.stringify(data));
+                        callback != undefined && callback();
+                    } else { // 可能 退订产品状态码为1201 不存在订购关系 
+                    		if (data['returnCode'] == "1201") {
+                    				isOpen(access_token,function(res) {
+                    					if (res) {callback != undefined && callback();}
+                    				})                    				
+                    		} else { $.yy['alert']({ icon: 'icon-close', word: '网络繁忙，请重试' }) }
+                    }                    
+
+                }
+          });
+          return false
+      }
+      function submitMonth($target1,$target2) { //主页包月、详情页包月提交
+      	var 	$obphone = $target1,
+              $obkey = $target2,
+              desc = '',
+              dom = '';
+          phone = $obphone.val();
+          code = $obkey.val();
+          $obphone.blur();
+          $obkey.blur();
+          console.log('yi')
+          if (!user['phone']) {
+          	console.log(1)
+          	if (!$(this).hasClass('disabled') && phone != '' && code != '') {
+          		console.log(2)
+          			login(phone, code, function() {
+          				console.log(3)
+          					var dom, desc = '';
+          					if (!user['isBase'] && !user['is4G']) {
+          						desc = '<br/>您暂未开通炫铃基础功能，为了保证能正常使用彩铃，我们将一并开通该功能（5元/月）。';
+          					}
+          					dom = '<div class="isp_tit">'+
+																			'<h1 id="ring" class="change_choose" ><p>My Ring-back</p><p>业务</p></h1>'+
+																	'</div>'+
+																	'<div class="ring_de">'+
+																		'<div class="isp_cont">'+
+																			'<div class="ring_buy_type" style="margin-top: 0;">'+
+																				'<p  class="progress">尊敬的 ' + phone + ' 用户，您正在开通挖哇炫铃包月业务，资费：5元/月，开通后可免费设置彩铃。' + desc + '</p>'+
+																				'<img class="pro_phone" src="../img/yuyin/isp/Group 2.png">'+
+																				'<a class="pro_buy" id="sure_order">立即订购</a>'+
+																			'</div>'+
+																		'</div>'+
+																		'<div class="line"></div>'+
+																		'<div class="ring_tip_2"> <p>1、由广州市伟图信息技术有限公司为您提供移动信息服务</p><p>2、业务退订方式： 进入「我的」页面 - 点击「取消包月」 - 完成退订</p> </div>'+
+ 																	'</div>'
+                    $taskInfo.html(dom);
+                    location.href="#!order/taskInfo"
+          			})
+          	}
+        	}
+          return false;
+      }
+      function setRing(tid, content_id, access_token, callback) { //设置彩铃 //ok
+          $.ajax({
+                url: "http://120.25.88.27:8088/cucc/v1/cucc/call",
+                data: {
+                    url: '/v1/ring/buyVipTone',
+                    contentId: content_id,
+                    toneType: '1',
+                    toneID: tid,
+                    sP_ProductID: '7000100301',
+                    access_token: access_token,
+                    productId: '0000002491',
+                    category: 2
+                },
+                beforeSend: function() {
+                    $.yy['alert']({ icon: '', word: '正在设置...',time: 4000 });
+                },
+                success: function(data) {
+                    if (data['returnCode'] == "400033" || data['returnCode'] == "000000") {
+                        console.log('设置免费彩铃' + JSON.stringify(data));
+                        getUserInfo(function() { setInfo($home_ring_info) });
+                        callback != undefined && callback();
+                    } else if (data['returnCode'] == "100001") { //包月设置当前彩铃为空时
+                    	 	getUserInfo(function() { setInfo($home_ring_info) });
+                        callback != undefined && callback();
+                    } else {
+                        $.yy['alert']({ icon: 'icon-close', word: '网络繁忙，请重试' });
+                    }
+                }
+          });
+      }    
+      function openProduct(access_token,phone, callback) { //开通包月  //ok
+					$.isp['ajax']({
+                url: '//wawa.fm/cucc/v1/api/subProduct',
+                type: 'GET',
+                data: {
+                    channel: 900,
+                    phone: phone,
+                    product_id: '0000002491',
+                    token: access_token,
+                    user_id: $.yy['getQuery']('uid') || '0'
+                },
+                beforeSend: function() {
+                    $.yy['alert']({ icon: '', word: '正在请求...' });
+                },
+                success: function(data) {//返回的是data[code]  0
+                    if (data['code'] == 1) {
+                        callback != undefined && callback();
+                    } else {
+                        isOpen(access_token, function(res) {
+                            if (res) {
+                                callback != undefined && callback();
+                            } else {
+                                $.yy['alert']({ icon: 'icon-close', word: '开通包月失败，请重试~' });
+                            }
+                        });
+                    }
+                }
+          });
+      }
+			$tabs.eq(0).trigger('tap');
+		});
+
+			
+	</script>
+</body>
+</html>

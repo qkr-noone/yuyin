@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>余音活动___参与方式</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+	<link rel="stylesheet" href="../css/yuyin.fonts.css" />
+	<link rel="stylesheet" href="../css/yy.css" />
+	<link rel="icon" href="../img/app/yuyinfavicon.ico" />
+
+	<style>
+		.popup{
+			display: flex;
+			position: fixed;
+			justify-content: center;
+			align-items: center;
+			top: 0;
+    	left: 0;
+    	bottom: 0;
+    	right: 0;
+    	background: rgba(0,0,0,.84);
+		}
+		.act_content{
+			/*width: calc( 100% - 105px );*/
+			width: 100%;
+			height: 100%;
+			background: #ffffff;
+			position: relative;
+		}
+		.act_wrap{
+			width: 100%;
+			min-height:150px;
+			overflow: hidden;
+		}
+		.act_detail {
+			width: 100%;
+			box-sizing: border-box;
+			padding: 20px;
+			margin-bottom: 55px;
+		}
+		.act_title{
+			font-size: 18px;
+			line-height: 25px;
+			margin-bottom: 20px;
+			font-family: "PingFangSC-Semibold";
+		}
+		.all_detail_cont{
+			margin-top: 20px;
+			line-height: 20px;
+			font-size: 12px;
+			width: 100%;
+		}
+		#act_id{
+			width: 80px;
+			height: 30px;
+			left: calc(50% - 40px);
+			position: absolute;
+			bottom: 20px;
+			border: 1px solid #444444;
+			font-size: 12px;
+			line-height: 30px;
+			text-align: center;
+			padding: 0;
+			color: #444444;
+			background: #ffffff;
+		}
+	</style>
+</head>
+<body>
+<div id="loading">
+	<div class="yyloader">
+			<span></span>
+			<span></span>
+			<span></span>
+			<img src="http://up.wawa.fm/21,019486d41d666e"/>
+	</div>
+</div>
+	<div class="popup">
+		<div class="act_content">
+			<div class="act_wrap">
+				<img class="img-content" id="contentImg" src="../img/yuyin/active_1.jpg">
+			</div>
+			<div class="act_detail">
+				<h1 class="act_title bolder">Vol.001 _ 做歌单,送音响</h1>
+				<h4 class="list-h4">活动时间：11月8日-12月25日</h4>
+				<div class="all_detail_cont">我们在听到一首令人耳目一新的作品的时候，内心狂喜，难以抑制的分享的冲动。这种妙不可言的幸福感，实在太难以抗拒，迫不及待想要传递给更多的人。</div>
+			</div>
+			<div id="act_id">参加活动</div>
+		</div>
+	</div>
+
+	<script src="../js/jquery.js"></script>
+	<script src="../js/md5.min.js"></script>
+	<script src="../js/yy.js"></script>
+	<script>
+		$(function(){
+			var $doc = $(document),
+					$loading = $('#loading');
+			// http://up.wawa.fm/18,e0e2b2ce7111?width=300
+			// $.yy['loadImage']( "http://up.wawa.fm/21,015caaee647d33?width=270", "contentImg");
+
+			$loading.css('display',"none");
+			$doc.on("tap", '#act_id', function() {
+				open_web_view_api("https://wawa.fm/share/yuyin/articleInfo.php?uid=23057&platform=3&page=share&id=741");
+				return false;
+			})
+		});
+	</script>
+</body>
+</html>

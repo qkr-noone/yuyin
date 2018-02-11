@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+	<link rel="stylesheet" href="../css/yuyin.fonts.css" />
+	<link rel="stylesheet" href="../css/yy.css" />
+	<link rel="icon" href="../img/app/yuyinfavicon.ico" />
+	<title></title>
+
+	<style>
+	ul,li,p{margin:0; padding: 0;}
+	.isp_info{height: 100vh;overflow: hidden;}
+	.pre_title{margin-top: 20px;  overflow: hidden;}
+	.pre_title>div{float: left;margin-left: 20px;}
+	.pre_title>div h1{font-size: 36px;line-height: 50px;font-family: "PingFangSC-Semibold";}
+	.pre_title>div h4{font-size: 12px;line-height: 16.5px;}
+	.icon-close{font-size: 24px;margin-right: 24px;}
+	.pre_content, .pre_footer{margin:auto 20px;}
+	.comp{overflow: hidden;margin-bottom: 40px;display: flex;align-items: center;}
+	.comp>img{float: left; width: 60px;}
+	.comp>i{float: left; font-size: 60px;}
+	.comp_de{float: left;margin-left: 30px;}
+	.comp_de>h2{font-size: 18px;line-height: 25px;}
+	.comp_de>h4, .pre_footer{font-size: 12px; line-height: 16.5px;color:#9B9B9B;font-family: "PingFangSC-Regular";}
+	.de_fixed{position: absolute;   right: 0; left: 0; bottom: 0; }
+	.pre_footer{margin-bottom: 40px}
+
+	</style>
+
+</head>
+<body>
+<div id="loading">
+	<div class="yyloader">
+			<span></span>
+			<span></span>
+			<span></span>
+			<img src="http://up.wawa.fm/21,019486d41d666e"/>
+	</div>
+</div>
+<div class="isp_info ">
+
+		<div class="de_fixed">
+			
+		<ul class="pre_content">
+			<!-- <li class="comp" id="history">
+				<img src="../img/yuyin/history.png">
+				<div class="comp_de">
+					<h2 class="bolder">历史活动</h2>
+					<h4>Historical Act</h4>
+				</div>
+			</li> -->
+			
+			<li class="comp" id="feedback">
+				<img src="../img/yuyin/feedback.png">
+				<div class="comp_de">
+					<h2 class="bolder">问题反馈</h2>
+					<h4>Problem Feedback</h4>
+				</div>
+			</li>
+			<!-- <li class="comp" id="destory" style="opacity: 0.3">
+				<i class="icon-delete"></i>
+				<div class="comp_de">
+					<h2 class="bolder">清理内存</h2>
+					<h4>正在计算......</h4>
+				</div>
+			</li> -->
+		</ul>
+		</div>
+</div>
+	
+	<script src="../js/jquery.js"></script>
+	<script src="../js/md5.min.js"></script>
+	<script src="../js/yy.js"></script>
+	<script>		
+		/*
+			Q.user_id
+		*/
+		$(function(){
+			var $win= $(window),
+					$doc= $(document),
+					$loading = $('#loading'),
+					phone = 0;
+			$loading.css("display","none");
+			$('title').html('选择运营商');
+		  if ($.yy['getQuery']('page')) {
+  		  if ($.yy['getQuery']('page') =="app") {
+  		    if ($.yy['getQuery']('platform')==2) {
+  		      phone = 2; //IOS
+  		    }
+  		  }
+  		}
+			if (phone == 2) {
+				$('<li class="comp" id="score"><img src="../img/yuyin/score.png"><div class="comp_de"> <h2 class="bolder">应用评分</h2><h4>Favourable Comment</h4></div> </li>').insertBefore('#feedback');
+			}
+			$doc/*.on("tap", '#history', function() { //
+				send_open_set('history.html','','历史活动','HISTORICAL ACT');
+				return false
+			})*/
+			.on("tap", '#feedback', function() {
+				send_open_set('feedback.html','','反馈','FEEDBACK');
+				// window.location.href = "https://wawa.fm/static/yuyin/feedback.html";
+				return false
+			})
+			.on("tap", '#destory', function() {
+				$.yy['alert']({'icon':'icon-info','word':'暂未支持'})
+				return false
+			})
+			.on("tap", "#score", function() {
+				send_open_score();
+				return false
+			})
+		});
+
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+	<link rel="stylesheet" href="../css/yuyin.fonts.css" />
+	<link rel="stylesheet" href="../css/yy.css" />
+	<link rel="icon" href="../img/app/yuyinfavicon.ico" />
+	
+	<style type="text/css">
+		#artist_list{margin-bottom: 60px; }
+		.tip{border: 1px solid #f5f5f5;box-sizing: border-box;}
+		@media(max-width: 359px){
+			#tracks_num{display: none;}
+		}
+	</style>
+</head>
+<body>
+<div id="loading">
+	<div class="yyloader">
+			<span></span>
+			<span></span>
+			<span></span>
+			<img src="http://up.wawa.fm/21,019486d41d666e"/>
+	</div>
+</div>
+<div class="artist_list">
+	<ul id="artist_list">
+	</ul>
+	<a id="more"  class="more"></a>
+</div>
+	<script src="../js/jquery.js"></script>
+	<script src="../js/md5.min.js"></script>
+	<script src="../js/yy.js"></script>
+	<script>
+		$(function(){
+			var reqdata = { category: 3, page: 1, size: 10 },
+					$artist_list = $('#artist_list'),
+					$win= $(window),
+					$doc= $(document),
+					$more = $("#more"),
+					$loading = $("#loading"),
+					isLoad = false,
+					isFooter = false;
+			request = function(){
+				$.yy['ajax']({
+					url: "musician/list",
+					type: "GET",
+					data: reqdata,
+					success: function(data){
+						localStorage["musician/list" + reqdata['page']] = JSON.stringify(data);
+						var list = data, page = data[page], len = list.length, dom = '', labelsZh = '';
+						if (len > 0) {
+							for (var i = 0; i < len; i++){
+
+								labelsZh = '风格：';
+								if (list[i]['labels']) {
+									labelsZh += '<span>'+list[i]['labels'][0]['label_zh']+'</span>';
+								};
+								dom += '<li class="list" >' +
+												'<div class="list-img-2" title="乐人" subTitle="INDIE ARTIST"  artist_info="'+ list[i]['id']+'">' +
+												'<div class="tip" style="width:100%; overflow: hidden;">'+
+													'<img id="listImg'+ i +'" class="img-content" src="http://up.wawa.fm/18,015414261e53c7?width=500"></div>'+
+												'<h1 class="list-h1 bolder">'+ list[i]['nickname'] +'</h1>'+
+												'<h4 class="list-h4"><span class="list-span">'+labelsZh+'</span><span id="tracks_num" class="list-span">歌曲：'+list[i]['track_count']+'</span>播放量：'+list[i]['play_count']+
+												'</div>'
+											'</li>';
+								$.yy['loadImage']( list[i]['headimg']+"?width=500", "listImg"+i );								
+								
+							}
+						}
+						$artist_list.css("display","block");
+						$artist_list.append(dom);
+						wrapH = parseInt($('.list-img-1').width());
+						$('.tip').css("height",wrapH);
+					},
+					error: function(){
+						$artist_list.css("display", "none");						
+					},
+					complete: function(){
+						$loading.css("display", "none");
+					},
+				});
+			};
+			var setList = function(key){
+        var list = JSON.parse(localStorage[key]),dom = '',len = list.length, before = $artist_list.children("li").length;
+
+       	if (len > 0) {
+							for (var i = 0; i < len; i++){
+								if (list[i]['labels']) {
+									labelsZh = '风格：';
+
+									labelsZh += '<span>'+list[i]['labels'][0]['label_zh']+'</span>';
+								};
+
+								dom += '<li class="list"  >' +
+												'<div class="list-img-2" title="乐人" subTitle="INDIE ARTIST" artist_info="'+ list[i]['id']+'">' +
+												'<div class="tip"  style="width:100%; overflow: hidden;">'+
+													'<img id="listImg'+ before+i +'" class="img-content" src="http://up.wawa.fm/18,015414261e53c7?width=500"></div>'+
+												'<h1 class="list-h1 bolder">'+ list[i]['nickname'] +'</h1>'+
+												'<h4 class="list-h4"><span class="list-span">'+labelsZh+'</span><span id="tracks_num" class="list-span">歌曲：'+list[i]['track_count']+'</span>播放量：'+list[i]['play_count']+
+												'</div>'
+											'</li>';
+							$.yy['loadImage']( list[i]['headimg']+"?width=500", "listImg"+before+i );
+						}
+						$artist_list.append(dom);
+						wrapH = parseInt($('.list-img-1').width());
+						$('.tip').css("height",wrapH);
+					}else{
+            $more.html('到底了');
+            isFooter = true;
+        };
+      }
+
+      request();
+      
+      // 上拉加载
+			$doc.on("scrollstop",function(){
+  			if($win.scrollTop() + $win.height() >= $doc.height()-400 && !isLoad && !isFooter ) {
+  	 		  $more.html('<div class="yyloader"><span></span><span></span><span></span><img src="http://up.wawa.fm/21,019486d41d666e"/></div>');
+					isLoad = true;
+					reqdata = {	category: 3, size: 10, page: Math.ceil($artist_list.children("li").length / 10)+1 }  
+      	 	if (navigator.onLine){
+
+  	 		  	$.yy['ajax']({
+  	 		  		url: "musician/list",
+  	 		  		type: "GET",
+  	 		  		data: reqdata,
+  	 		  		success: function(data){localStorage["musician/list" + reqdata['page']] = JSON.stringify(data);},
+  	 		  		error: function(){$more.html("请求数据有误").show();return false;},
+  	 		  		complete: function(data) { 
+            		isLoad = false;
+								if (localStorage["musician/list" + reqdata['page']] == undefined) {
+			      		    $more.html("暂无数据").show();
+			      		    return false
+			      		} else {
+			      		  setList("musician/list"+reqdata['page']);
+			      		}
+            	}  	
+  	 		  	})
+  	 		 	} else {
+  	 		 		$more.html("网络连接错误").show();
+		  	  	return false;
+		  	  }
+      	}
+      	return false;
+  		});
+
+  		$doc.on("tap",'.list-img-2', function() {
+  			$.yy['nextHref']('artistInfo.html', $(this).attr("artist_info"), $(this).attr("title"), $(this).attr("subTitle"));	
+  			return false;
+  		})
+		});
+	</script>
+</body>
+</html>

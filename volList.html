@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+	<link rel="stylesheet" href="../css/yuyin.fonts.css" />
+	<link rel="stylesheet" href="../css/yy.css" />
+	<link rel="icon" href="../img/app/yuyinfavicon.ico" />
+	
+	<style>
+	#vol_list{margin-bottom: 60px;}
+	</style>
+</head>
+<body>
+<div id="loading">
+	<div class="yyloader">
+			<span></span>
+			<span></span>
+			<span></span>
+			<img src="http://up.wawa.fm/21,019486d41d666e"/>
+	</div>
+</div>
+<div class="vol_list">
+	<ul id="vol_list">
+	</ul>
+	<a id="more"  class="more"></a>
+</div>
+	<script src="../js/jquery.js"></script>
+	<script src="../js/md5.min.js"></script>
+	<script src="../js/yy.js"></script>
+	<script>
+	/*
+		Q: user_id
+	*/
+		$(function(){
+			var reqdata = { category: 1, page: 1, size: 10 }
+					$vol_list = $('#vol_list'),
+					$win= $(window),
+					$doc= $(document),
+					$more = $("#more"),
+					$loading = $('#loading'),
+					isLoad = false,
+					isFooter = false;
+			request = function(){
+				$.yy['ajax']({
+					url: "album/list",
+					type: "GET",
+					data: reqdata,
+					success: function(data){
+						localStorage["album/list" + reqdata['page']] = JSON.stringify(data);
+						var list = data, page = data[page], len = list.length, dom = '';
+						if (len > 0) {
+							for (var i = 0; i < len; i++){
+								dom += '<li class="list" >' +
+												'<div class="list-img-1"  title="猎乐" subTitle="HUNTINGS"  vol_info="'+ list[i]['id']+'">' +
+												'<div class="tip" style="width:100%; overflow: hidden;">'+
+													'<img id="listImg'+ i +'" class="img-content" src="http://up.wawa.fm/17,0154131f98d2fe?width=500"></div>'+
+												'<h1 class="list-h1 bolder">'+ list[i]['title'] +'</h1>'+
+												'<h4 class="list-h4">Vol.' + list[i]['number'] + '<i style="margin-left:20px;"></i>播放量：' + list[i]['play_count'] + '次</h4>'+
+												'</div>'
+											'</li>'
+								$.yy['loadImage']( list[i]['res_cover']+"?width=500", "listImg"+i );
+
+							}
+						}
+						$vol_list.css("display", "block");
+						$vol_list.html(dom);
+					},
+					error: function(){
+						$vol_list.css("display", "none");						
+					},
+					complete: function(){
+						$loading.css("display", "none");
+					},
+				});
+			};
+
+			var setList = function(key){
+        var list = JSON.parse(localStorage[key]),dom = '',len = list.length, before = $vol_list.children("li").length;
+
+       	if (len > 0) {
+							for (var i = 0; i < len; i++){
+								dom += '<li class="list" >' +
+												'<div class="list-img-1" title="猎乐" subTitle="HUNTINGS"  vol_info="'+ list[i]['id']+'">' +
+												// '<div style="width:100%;"><img class="img-content" src="' + list[i]['res_cover'] +'"></div>'+
+												'<div class="tip" style="width:100%; overflow: hidden;" >'+
+													'<img id="listImg'+before+i+'" class="img-content" src="http://up.wawa.fm/17,0154131f98d2fe?width=500"></div>'+
+												'<h1 class="list-h1 bolder">'+ list[i]['title'] +'</h1>'+
+												'<h4 class="list-h4">Vol.' + list[i]['number'] + '<i style="margin-left:20px;"></i>播放量：' + list[i]['play_count'] + '次</h4>'+
+												'</div>'
+											'</li>'
+							$.yy['loadImage']( list[i]['res_cover']+"?width=500", "listImg"+before+i );
+						}
+						$vol_list.append(dom);
+						
+					}else{
+            $more.html('到底了');
+            isFooter = true;
+        };
+      }
+
+			request();
+      // 上拉加载
+      $doc.on("scrollstop",function(){
+  			if($win.scrollTop() + $win.height() >= $doc.height()-400 &&!isLoad && !isFooter ){
+  	 		  $more.html('<div class="yyloader"><span></span><span></span><span></span><img src="http://up.wawa.fm/21,019486d41d666e"/></div>');
+					isLoad = true;
+					reqdata = {	category: 1, size: 10, page: Math.ceil($vol_list.children("li").length / 10)+1 }  
+      	 	if (navigator.onLine){
+
+  	 		  	$.yy['ajax']({
+  	 		  		url: "album/list",
+  	 		  		type: "GET",
+  	 		  		data: reqdata,
+  	 		  		success: function(data){localStorage["album/list" + reqdata['page']] = JSON.stringify(data);},
+  	 		  		error: function(){$more.html("请求数据有误").show();return false;},
+  	 		  		complete: function(data) { 
+            		isLoad = false;
+								if (localStorage["album/list" + reqdata['page']] == undefined) {
+			      		    $more.html("暂无数据").show();
+			      		    return false
+			      		} else {
+			      		  setList("album/list"+reqdata['page']);
+			      		}
+            	}  	
+  	 		  	})
+  	 		 	} else {
+  	 		 		$more.html("网络连接错误").show();
+		  	  	return false;
+		  	  }
+      	}
+      	return false;
+  		});
+
+      $doc.on("tap",'.list-img-1', function() {
+  			$.yy['nextHref']('volInfo.html',$(this).attr("vol_info"),$(this).attr("title"),$(this).attr("subTitle")); 
+  			return false;
+  		});
+
+		});
+	</script>
+</body>
+</html>

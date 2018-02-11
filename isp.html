@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+	<link rel="stylesheet" href="../css/yuyin.fonts.css" />
+	<link rel="stylesheet" href="../css/yuyin.content.css" />
+	<link rel="stylesheet" href="../css/yy.css" />
+	<link rel="icon" href="../img/app/yuyinfavicon.ico" />
+	<title></title>
+
+	<style>
+	ul,li,p{margin:0; padding: 0;}
+	.isp_info{height: 100vh;overflow: hidden;}
+	.pre_title{margin-top: 20px;  overflow: hidden;}
+	.pre_title>div{float: left;margin-left: 20px;}
+	.pre_title>div h1{font-size: 36px;line-height: 50px;font-family: "PingFangSC-Semibold";}
+	.pre_title>div h4{font-size: 12px;line-height: 16.5px;}
+	.icon-close{font-size: 24px;margin-right: 24px;}
+	.pre_content, .pre_footer{margin:auto 20px;}
+	.comp{overflow: hidden;margin-bottom: 40px;display: flex;align-items: center;}
+	.comp>img{float: left; width: 60px;}
+	.comp_de{float: left;margin-left: 30px;}
+	.comp_de>h2{font-size: 18px;line-height: 25px;}
+	.comp_de>h4, .pre_footer{font-size: 12px; line-height: 16.5px;color:#9B9B9B;font-family: "PingFangSC-Regular";}
+	.de_fixed{position: absolute;    left: 0;    bottom: 0; }
+	.pre_footer{margin-bottom: 40px}
+
+	</style>
+
+</head>
+<body>
+<p id="loading"><img  src="../img/yuyin/loading.gif"></p>
+<div class="isp_info ">
+
+		<div class="pre_title">
+			<div>
+				<h1 class="bolder">彩铃订购</h1>
+				<h4>TO BUY RING-BACK</h4>
+			</div>
+			
+		</div>
+		<div class="de_fixed">
+			
+		<ul class="pre_content">
+			<li class="comp" id="cucc">
+				<img src="../img/yuyin/isp/联通.svg">
+				<div class="comp_de">
+					<h2 class="bolder">联通</h2>
+					<h4>China Unicom</h4>
+				</div>
+			</li>
+			<li class="comp" id="cmcc" style="opacity: .6">
+				<img src="../img/yuyin/isp/移动.svg">
+				<div class="comp_de">
+					<h2 class="bolder">移动(即将开通)</h2>
+					<h4>China Mobile</h4>
+				</div>
+			</li>
+			<li class="comp" id="ctcc" style="opacity: .6">
+				<img src="../img/yuyin/isp/电信.svg">
+				<div class="comp_de">
+					<h2 class="bolder">电信(即将开通)</h2>
+					<h4>China Telicom</h4>
+				</div>
+			</li>
+		</ul>
+		<div class="pre_footer"><p>根据你要设置的手机号码，选择所属运营商</p></div>
+		</div>
+</div>
+	
+	<script src="../js/jquery.js"></script>
+	<script src="../js/jquery.cookie.min.js"></script>
+	<script src="../js/md5.min.js"></script>
+	<script src="../js/yy.js"></script>
+	<script>		
+		/*
+			Q.user_id
+		*/
+
+
+		
+
+		$(function(){
+			var $win= $(window),
+					$doc= $(document),
+					$loading = $('#loading');
+			$loading.css("display","none");
+			$('title').html('选择运营商');
+			$doc.on("tap", '#cucc', function() {
+				window.location.href = "http://wawa.fm:8088/static/app/yuyin/cucc.html?"+location.search;
+				//$.yy['alert']({'icon':'icon-info','word':'暂未支持'})
+			})
+			.on("tap", '#cmcc', function() {
+				// window.location.href = "https://wawa.fm/test/yuyin/ctcc.html";
+				$.yy['alert']({'icon':'icon-info','word':'暂未支持'})
+			})
+			.on("tap", '#ctcc', function() {
+				// window.location.href = "https://wawa.fm/test/yuyin/ctcc.html";
+				$.yy['alert']({'icon':'icon-info','word':'暂未支持'})
+			})
+		});
+
+
+	</script>
+</body>
+</html>

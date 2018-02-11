@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <link rel="stylesheet" href="../css/yuyin.fonts.css" />
+    <link rel="stylesheet" href="../css/yy.css" />
+    <link rel="icon" href="../img/app/yuyinfavicon.ico" />
+    
+    <style>
+    .vol_info {
+        margin-top: 5px;
+        margin-bottom: 36px;
+    }
+    /*歌曲下线 透明度*/
+    .off_line{
+    	opacity: 0.3;
+    }
+
+    </style>
+</head>
+<body>
+<div id="loading">
+	<div class="yyloader">
+			<span></span>
+			<span></span>
+			<span></span>
+			<img src="http://up.wawa.fm/21,019486d41d666e"/>
+	</div>
+</div>
+<div class="vol_info ">
+	<div class="a-content">
+		<div class="a-head-img">
+			<div class="icon-wrap" id="all_play_track">
+				<i class="icon-play"></i>
+			</div>
+			<img class="img-content" id="contentImg" src="http://up.wawa.fm/17,0154131f98d2fe?width=500">
+		</div>
+		<h1 id="title" class="list-h1 bolder" style="line-height: 33.5px;"></h1>
+		<h4 id="title_num" class="list-h4"></h4>
+		<p class="a-content-p">
+			<i id="icon_comment">
+			<i class="fl icon-comment" style="font-size:22px;"></i>
+			<span id="comment" class="fl"></span>
+			</i>
+			<i id="icon_share">
+			<i class="fl icon-share" style="font-size:22px;"></i>
+			<span id="share"></span>
+			</i>
+		</p>
+	</div>
+	<div class="all-content"></div>
+	<div class="sing-list">
+		<div class="song-list-title">
+			<span style="line-height:22px;" id="sumSong"></span>
+			<!-- <span style="line-height:22px;" id="download">
+				<i class="icon-download" style="font-size:22px;margin-right:8px;float:left;"></i>全部缓存
+			</span> -->
+		</div>
+		<div class="line song-line"></div>
+		<ul class="sing-list-ul"></ul>
+	</div>
+	<div class="article-list"></div>
+</div>
+<audio id="audio"></audio>
+
+	<script src="../js/jquery.js"></script>
+	<script src="../js/md5.min.js"></script>
+	<script src="../js/yy.js"></script>
+
+	<script>
+		/*
+			Q.user_id
+		*/
+		$(function(){
+			var $win= $(window),
+					$doc= $(document),
+					vol_info_id,
+					$loading = $('#loading'),
+					reqdata,
+					add_play_list,
+					play_list_id = [],
+					songlist_id,
+					all_data,
+					share_href,
+					$all_play_track = $('#all_play_track'),
+					$sing_list_ul = $('.sing-list-ul'),
+					send_share,
+					send_comment,
+					info;
+
+			share_href = $.yy['get_share_href'];
+			vol_info_id = $.yy['getQuery']('id');
+			reqdata = {id:vol_info_id }; /*866*/
+			request = function(){
+				$.yy['ajax']({
+				 url: "album/info",
+				 type: "GET",
+				 data: reqdata,
+				 success: function(data){
+				 	if (data['status']==1) {
+						all_data = data;
+						add_play_list = data['tracks'];
+						var songList = '', num=0;
+
+						addNumCallback(data['comment_count'],data['share_count'],2);
+						commentNum = data['comment_count'];
+						shareNum =data['share_count'];
+
+						$('#title').html(data['title']);
+						$('#title_num').html('VOL.'+ data['number']+'<i style="margin-left:20px;"></i>播放量：'+data['play_count']+'次');
+
+						$("#icon_comment").attr({"c_s_id":data['id'],'img':data['res_cover']+'?width=500','title_songname':'vol.'+data['number']+' '+data['title'],'author_singer':""});
+						$("#icon_share").attr({"c_s_id":data['id'],'img':data['res_cover']+'?width=400','title_songname':'vol.'+data['number']+' '+data['title'],'author_singer':"",'descript':data['description'].substring(0, 75),'share_link':share_href,'media_link':""});
+
+						$('#sumSong').html('共'+data['tracks'].length+'首歌');
+						for(var j = 0; j<data['tracks'].length; j++){
+
+							num++;
+							status = data['tracks'][j]['status']=='-1' ? 'off_line':'on_line';
+							songList += '<li class="play_track" id="'+data['tracks'][j]['id']+'" uid="'+data['tracks'][j]['from_user']+
+															'" songname="'+data['tracks'][j]['songname']+'" singer="'+data['tracks'][j]['singer']+
+															'" src="'+data['tracks'][j]['file320']+'" cover="'+data['tracks'][j]['res_cover']+'">'+
+														'<h1 >'+ num +'</h1>'+
+														'<div class="'+status+'"><img class="img-content" id="songImg'+ j +'" src="http://up.wawa.fm/18,015414261e53c7?width=500"></div>'+
+														'<div class="'+status+'"><h3 class="ellipsis">'+data['tracks'][j]["songname"]+'</h3><h4 class="ellipsis">'+data['tracks'][j]['singer']+'</h4></div>'+
+													'</li>';
+
+							play_list_id.push(data['tracks'][j]['id']);
+
+							$.yy['loadImage']( data['tracks'][j]['res_cover']+"?width=120", "songImg"+j);
+						}
+
+
+						$.yy['loadImage']( data['res_cover']+"?width=500", "contentImg");
+						$sing_list_ul.append(songList);
+						$('.all-content').html(data['description'].replace(/\n|\r\n/mg,'<br />'));
+						
+						var that_send = $('#icon_share');
+						send_share = {
+							source: {
+      			    id: that_send.attr("c_s_id"),
+      			    img:that_send.attr("img"),
+      			    title_songname:that_send.attr("title_songname"),
+      			    author_singer:that_send.attr("author_singer"),
+      			    descript:that_send.attr("descript"),
+      			    share_link:that_send.attr("share_link"),
+      			    media_link:that_send.attr("media_link")
+      			  },
+      			  category: 1
+						};
+
+						var that_comment = $('#icon_comment');
+						send_comment = {
+							source: {
+        			  id:that_comment.attr("c_s_id"),
+        			  img:that_comment.attr("img"),
+        			  title_songname:that_comment.attr("title_songname"),
+        			  author_singer:that_comment.attr("author_singer")
+        			},
+        			category: 1
+						};
+						info = '';
+						send_stretch_api($('.a-content').height(),send_share,send_comment,info);
+					} else {
+						$('body').html('<div class="res">很抱歉，暂无数据</div>');
+					}
+				 },
+					complete: function(){
+						$loading.css("display", "none");
+					},
+					
+				});
+			};
+			
+			request();
+			$('.all-content').css("text-align","justify");
+			window.onTabMusic = function(id) {				
+				TabData(play_list_id, id);	
+			}
+			window.onLoadData = function(categroy) {
+				addNumCallback(commentNum, shareNum, categroy);
+			}
+
+			$doc.on("tap", "#icon_share", function() {
+				share_api(send_share['category'],send_share['source']);
+        		return false;
+			})
+			.on("tap", "#icon_comment", function() {
+				comment_api(send_comment['category'],send_comment['source']);
+    			return false;
+			})
+			.on("tap", '.icon-wrap', function() {
+				songlist_id = "1" + $.yy['getQuery']('id');
+				tracks = {
+					list:add_play_list,
+					id:songlist_id,
+					curid: add_play_list[0]['id']
+				};
+				source = {
+					title:all_data['title'],
+					id:$.yy['getQuery']('id'),
+					category:1
+				};
+				play_api(tracks,source);
+				return false;
+			})
+			.on("tap", '.play_track', function() {
+				songlist_id = "1" + $.yy['getQuery']('id');
+				tracks = {
+					list:add_play_list,
+					id:songlist_id,
+					curid: $(this).attr("id")
+				};
+				source = {
+					title:'vol.'+all_data['number']+' '+all_data['title'],
+					id:$.yy['getQuery']('id'),
+					category:1
+				};
+				play_api(tracks,source);
+				return false;
+ 			})
+ 			.on("tap", '#download', function() {
+ 				if (add_play_list.length) {
+					download_track_api(add_play_list);
+					return false;
+				}
+				return false
+ 			})
+ 			.on("tap", '#all_play_track', function() {
+				if (add_play_list.length) {
+					songlist_id = "1" + $.yy['getQuery']('id');
+					tracks = {
+						list:add_play_list,
+						id:songlist_id,
+						curid: add_play_list[0]['id']
+					};
+					source = {
+						title:'vol.'+all_data['number']+' '+all_data['title'],
+						id:$.yy['getQuery']('id'),
+						category:1
+					};
+					play_api(tracks,source);
+					return false;
+				}
+				return false
+			})
+
+		});
+	</script>
+
+</body>
+</html>

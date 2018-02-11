@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+	<link rel="stylesheet" href="../css/yuyin.fonts.css" />
+	<link rel="stylesheet" href="../css/yy.css" />
+	<link rel="icon" href="../img/app/yuyinfavicon.ico" />
+	
+	<style type="text/css">
+	</style>
+</head>
+<body>
+<div id="loading">
+	<div class="yyloader">
+			<span></span>
+			<span></span>
+			<span></span>
+			<img src="http://up.wawa.fm/21,019486d41d666e"/>
+	</div>
+</div>
+<div class="music_list">
+	<ul id="music_list">
+	</ul>
+	<a id="more"  class="more"></a>
+</div>
+	<script src="../js/jquery.js"></script>
+	<script src="../js/md5.min.js"></script>
+	<script src="../js/yy.js"></script>
+	<script>
+		$(function(){
+			var reqdata = { page: 1, size: 10 },
+					$music_list = $('#music_list'),
+					$win= $(window),
+					$doc= $(document),
+					$more = $("#more"),
+					$loading = $('#loading'),
+					isLoad = false,
+					isFooter = false;
+			request = function(){
+				$.yy['ajax']({
+					url: "track/recommend_list",
+					type: "GET",
+					data: reqdata,
+					success: function(data){
+						localStorage["track/recommend_list" + reqdata['page']] = JSON.stringify(data);
+						var list = data, page = data[page], len = list.length, dom = '';
+						if (len > 0) {
+							for (var i = 0; i < len; i++){
+								dom += '<li class="d-li" title="单曲" subTitle="MELODY" music_info="'+ list[i]['id']+'">' +
+												'<div class="d-tip">'+ list[i]['number'] +'</div>' +
+												'<div class="d-div">'+
+													'<h1 class="d-list-h1 ellipsis">'+ list[i]['songname'] + '</h1>'+
+													'<h4 class="d-list-h4"><span class="list-span">乐人：'+ list[i]['singer']+'</span>播放量：' + list[i]['play_count'] + '次</h4>'+
+													'</h4>'+
+												'</div>'
+											'</li>'
+							}
+						}
+						$music_list.css("display", "block");
+						$music_list.append(dom);
+					},
+					error: function(){
+						$music_list.css("display", "none");						
+					},
+					complete: function(){
+						$loading.css("display", "none");
+					},
+				});
+			};
+
+			var setList = function(key){
+        var list = JSON.parse(localStorage[key]),dom = '',len = list.length, before = $music_list.children("li").length;
+
+       	if (len > 0) {
+							for (var i = 0; i < len; i++){
+								dom += '<li class="d-li" title="单曲" subTitle="MELODY" music_info="'+ list[i]['id']+'">' +
+												'<div class="d-tip">'+ list[i]['number'] +'</div>' +
+												'<div class="d-div">'+
+													'<h1 class="d-list-h1 ellipsis">'+ list[i]['songname'] + '</h1>'+
+													'<h4 class="d-list-h4"><span class="list-span" >乐人：'+ list[i]['singer']+'</span>播放量：' + list[i]['play_count'] + '次</h4>'+
+													'</h4>'+
+												'</div>'
+											'</li>'
+						}
+						$music_list.append(dom);
+					}else{
+            $more.html('到底了');
+            isFooter = true;
+        };
+      }
+
+			request();
+
+      // 上拉加载
+			$doc.on("scrollstop",function(){
+  			if($win.scrollTop() + $win.height() >= $doc.height()-400 && !isLoad && !isFooter){
+  	 		  $more.html('<div class="yyloader"><span></span><span></span><span></span><img src="http://up.wawa.fm/21,019486d41d666e"/></div>');
+					isLoad = true;
+					reqdata = {	size: 10, page: Math.ceil($music_list.children("li").length / 10)+1 }  
+      	 	if (navigator.onLine){
+
+  	 		  	$.yy['ajax']({
+  	 		  		url: "track/recommend_list",
+  	 		  		type: "GET",
+  	 		  		data: reqdata,
+  	 		  		success: function(data){localStorage["track/recommend_list" + reqdata['page']] = JSON.stringify(data);},
+  	 		  		error: function(){$more.html("请求数据有误").show();return false;},
+  	 		  		complete: function(data) { 
+            		isLoad = false;
+								if (localStorage["track/recommend_list" + reqdata['page']] == undefined) {
+			      		    $more.html("暂无数据").show();
+			      		    return false
+			      		} else {
+			      		  setList("track/recommend_list"+reqdata['page']);
+			      		}
+            	}  	
+  	 		  	})
+  	 		 	} else {
+  	 		 		$more.html("网络连接错误").show();
+		  	  	return false;
+		  	  }
+      	}
+      	return false;
+  		});
+  		$doc.on("tap",'.d-li', function() {
+  			$.yy['nextHref']('musicInfo.html',$(this).attr("music_info"),$(this).attr("title"), $(this).attr("subTitle")); 
+  			return false;
+  		});
+		});
+	</script>
+</body>
+</html>

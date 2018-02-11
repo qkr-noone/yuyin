@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+	<meta name="msapplication-tap-highlight" content="no">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" href="../css/yuyin.fonts.css" />
+	<link rel="stylesheet" href="../css/yy.css" />
+	<link rel="icon" href="../img/app/yuyinfavicon.ico" />
+
+	<style type="text/css">
+	.filter_info,#artist_list{margin: auto 20px;overflow: hidden;}
+	.artist_list{width: 100%;}
+	.y_list{width: calc( (100% - 35px)/3 ); float: left; margin-left: 17.5px; overflow: hidden;}
+	
+	li{margin: 15px auto; }
+	li:nth-child(3n-2){margin-left: 0px;}
+	.y_list>div{ width: 100%;}
+	.y_list>h1{font-size: 12px; text-align: center;font-family: "PingFangSC-Regular"; line-height: 16.5px;margin-top: 10px;width: 100%;}
+	.filter_info{margin-top: 20px;}
+	.factor{margin-top: 15px;}
+	.filter_box{display: flex; justify-content: space-evenly;align-items: center; margin: auto 20px; }
+	/*.filter_box{line-height: 32px;}*/
+	.icon-search{height: 30px;line-height: 30px;width: 30px;text-align: center;opacity: 0.3;font-size: 20px;}
+	.icon-search:focus{outline:none;}
+	.search{padding: 8px 8px; border: none;  background-color: #fff; flex-grow: 100;text-shadow: 0px 0px 0px #444444;font-size: 15px; -webkit-text-fill-color: transparent;opacity: 0.3;}
+	.search:hover,.search:active,.search:visited,.search:focus,.find:focus, .find:hover,.find:active,.find:visited{outline:none;}
+	.search:focus{color:#FF6346;}
+	input{-webkit-tap-highlight-color: rgba(0,0,0,0);-webkit-appearance:none;-webkit-user-modify:read-write-plaintext-only;}
+	.find{height: 30px;line-height: 30px;width: 60px;padding: 0; text-align: center;    background: transparent;
+    border: 1px solid #444444;color: #444444;opacity: 0.3;  font-size: 12px;border-radius: 0;}
+	</style>
+</head>
+<body>
+<div id="loading">
+	<div class="yyloader">
+			<span></span>
+			<span></span>
+			<span></span>
+			<img src="http://up.wawa.fm/21,019486d41d666e"/>
+	</div>
+</div>
+<div class="artist_list">
+	<div class="factor">
+		<div class="filter_box">
+			<i class="icon-search"></i><input class="search" id="key" type="search" name="" placeholder="请输入检索内容">
+			<input type="button" class="find" id="find" value="搜索">
+		</div>
+		<ul class="filter_info" id="filter_info"></ul>
+	</div>
+	<ul id="artist_list">
+		<li class="y_list"><div></div></li>
+	</ul>
+	<a id="more"  class="more"></a>
+</div>
+	<script src="../js/jquery.js"></script>
+	<script src="../js/md5.min.js"></script>
+	<script src="../js/yy.js"></script>
+	<script>
+		$(function(){
+			var reqdata = { category: 3, size: 12,page: 1 },
+					$artist_list = $('#artist_list'),
+					$win = $(window),
+					$doc = $(document),
+					$more = $("#more"),
+					$loading = $("#loading"),
+					isLoad = false,
+					isFooter = false,
+					width =  (window.screen.width - 75)/3 +"px",
+					$find = $('#find'),
+					$key = $('#key'),
+					$filter_info = $('#filter_info'),
+					isSearch = false;
+
+
+			request = function(){
+				$.yy['ajax']({
+					url: "musician/list",
+					type: "GET",
+					data: reqdata,
+					success: function(data){
+						localStorage["musician/list" + reqdata['page']] = JSON.stringify(data);
+						var list = data, page = data[page], len = list.length, dom = '',labelsZh = '';
+						if (len > 0) {
+							for (var i = 0; i < len; i++){
+								dom += '<li class="y_list">' +
+											'<div class="tip" title="乐人" subTitle="INDIE ARTIST" style="height:'+width+';width:'+width+'; background: url(http://up.wawa.fm/18,015414261e53c7?width=200) no-repeat center;background-size:cover; " artist_info="'+ list[i]['id']+'" id="listImg'+ i +'">'+ 
+
+											'</div>'+
+											'<h1 class="ellipsis">' +list[i]['nickname'] +'</h1>'
+										'</li>';
+
+								$.yy['loadBg']( list[i]['headimg']+"?width=200", "listImg"+i );
+
+							}
+						}
+						
+						$artist_list.css("display", "block");
+						$artist_list.html(dom);
+
+
+					},
+					error: function(){
+						$artist_list.css("display", "none");						
+					},
+					complete: function(){
+						$loading.css("display", "none");
+					},
+				});
+			};
+			var setList = function(key){
+        var list = JSON.parse(localStorage[key]),dom = '',len = list.length, before = $artist_list.children("li").length;
+
+       	if (len > 0) {
+							for (var i = 0; i < len; i++){
+								dom += '<li class="y_list">' +
+											'<div class="tip" title="乐人" subTitle="INDIE ARTIST" style="height:'+width+';width:'+width+'; background: url(http://up.wawa.fm/18,015414261e53c7?width=200) no-repeat center;background-size:cover; " artist_info="'+ list[i]['id']+'" id="listImg'+before+i +'">'+ 
+											'</div>'+
+											'<h1 class="ellipsis">' +list[i]['nickname'] +'</h1>'
+										'</li>';
+							$.yy['loadBg']( list[i]['headimg']+"?width=200", "listImg"+before+i );
+							
+						}
+						$artist_list.append(dom);
+						
+					}else{
+            $more.html('到底了');
+            isFooter = true;
+        };
+      };
+
+      request();
+      // 上拉加载
+			$doc.on("scrollstop",function(){
+  			if($win.scrollTop() + $win.height() >= $doc.height()-400 && !isLoad && !isFooter && !isSearch){
+  	 		  $more.html('<div class="yyloader"><span></span><span></span><span></span><img src="http://up.wawa.fm/21,019486d41d666e"/></div>');
+					isLoad = true;
+					reqdata = {	category: 3, size: 12, page: Math.ceil($artist_list.children("li").length / 12)+1 }  
+      	 	if (navigator.onLine){
+  	 		  	$.yy['ajax']({
+  	 		  		url: "musician/list",
+  	 		  		type: "GET",
+  	 		  		data: reqdata,
+  	 		  		success: function(data){localStorage["musician/list" + reqdata['page']] = JSON.stringify(data);},
+  	 		  		error: function(){$more.html("请求数据有误").show();return false;},
+  	 		  		complete: function(data) { 
+            		isLoad = false;
+								if (localStorage["musician/list" + reqdata['page']] == undefined) {
+			      		    $more.html("暂无数据").show();
+			      		    return false
+			      		} else {
+			      		  setList("musician/list"+reqdata['page']);
+			      		}
+            	}  	
+  	 		  	})
+  	 		 	} else {
+  	 		 		$more.html("网络连接错误").show();
+		  	  	return false;
+		  	  }
+      	}
+      	return false;
+  		})
+  		.on("tap",'.tip', function() {
+  			$.yy['nextHref']('artistInfo.html', $(this).attr("artist_info"), $(this).attr("title"), $(this).attr("subTitle"));
+  			return false;
+  		})
+  		.on("tap", '#find', function() {
+  			if ($find.val() == "返回") {
+  				$artist_list.css("display","block");
+  				$filter_info.children().remove();
+  				isSearch = false;
+  				$key.val('');
+  				$find.val("搜索");
+  				$key.blur();
+  				$('.icon-search').css("opacity","0.3");
+  				$('.search').css("opacity","0.3");
+  				$find.css("opacity","0.3");
+  			}
+  			if ($key.val()) {
+  				$artist_list.css("display","none");
+					isSearch = true;
+  				$more.html('');
+  				$.yy['ajax']({
+  					url: 'user/list',
+  					type: "GET",
+  					data: {value:$key.val(),page:1,size:20},
+  					beforeSend: function(){$filter_info.html('<div class="more"><div class="yyloader"><span></span><span></span><span></span><img src="http://up.wawa.fm/21,019486d41d666e"/></div></div>')},
+  					success: function(data){
+  						var list = data, page = data[page], len = list.length, dom_search = '',
+  								times_tip= Date.parse(new Date()) / 1000;
+							if (len > 0) {
+								for (var i = 0; i < len; i++){
+									dom_search += '<li class="y_list">' +
+											'<div class="tip" title="乐人" subTitle="INDIE ARTIST" style="height:'+width+';width:'+width+'; background: url(http://up.wawa.fm/18,015414261e53c7?width=200) no-repeat center;background-size:cover; " artist_info="'+ list[i]['id']+'" id="filterList'+i+'">'+ 
+
+											'</div>'+
+											'<h1 class="ellipsis">' +list[i]['nickname'] +'</h1>'
+										'</li>';
+
+									$.yy['loadBg']( list[i]['headimg']+"?width=200", 'filterList'+i);
+
+								}
+
+								$filter_info.html(dom_search);
+							}else {
+								$filter_info.html('<p style = "text-align:left;font-size:12px;color:#9b9b9b;">对不起，系统未搜索到相关音乐人</p>');
+							}
+							$find.val("返回");
+  					},
+  				})
+  			}
+  			return false
+  		})
+  		.on("focus", "#key", function(event) {
+  			$('.icon-search').css("opacity","1");
+  			$('.search').css("opacity","1");
+  			if ($find.val()=="返回") {
+  				$find.val("搜索");
+  			}
+  			return false
+  		})
+  		.on("blur", "#key", function() {
+  			if (!$key.val()) {
+  				$('.icon-search').css("opacity","0.3");
+  				$('.search').css("opacity","0.3");
+  			}
+  			return false
+  		})
+  		.on("input", "#key", function() {
+  			event.preventDefault();
+  			if ($key.val()) {
+  				$find.css("opacity","1");
+  				$('.icon-search').css("opacity","1");
+  			} else {
+  				$find.css("opacity","0.3");
+  			}
+  			return false
+  		})
+			
+		});
+	</script>
+</body>
+</html>

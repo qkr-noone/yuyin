@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+	<link rel="stylesheet" href="../css/yuyin.fonts.css" />
+	<link rel="stylesheet" href="../css/yy.css" />
+	<link rel="icon" href="../img/app/yuyinfavicon.ico" />
+	<style>
+
+	</style>
+</head>
+<body>
+<div id="loading">
+	<div class="yyloader">
+			<span></span>
+			<span></span>
+			<span></span>
+			<img src="http://up.wawa.fm/21,019486d41d666e"/>
+	</div>
+</div>
+<div class="article_list">
+	<ul id="article_list">
+	</ul>
+	<a id="more"  class="more"></a>
+</div>
+	<script src="../js/jquery.js"></script>
+	<script src="../js/md5.min.js"></script>
+	<script src="../js/yy.js"></script>
+	<script>
+		$(function(){
+			var reqdata = { category: 4, size: 10, page: 1 },
+					$article_list = $('#article_list'),
+					$win= $(window),
+					$doc= $(document),
+					$more = $("#more"),
+					$loading = $('#loading'),
+					isLoad = false,
+					isFooter = false;
+			request = function(){
+				$.yy['ajax']({
+					url: "doc/list",
+					type: "GET",
+					data: reqdata,
+					success: function(data){
+						localStorage["doc/list" + reqdata['page']] = JSON.stringify(data);
+						var list = data, page = data[page], len = list.length, dom = '';
+						if (len > 0) {
+							for (var i = 0; i < len; i++){
+								dom += '<li class="d-li" title="乐文" subTitle="MUSIC ARTICLE" article_info="'+ list[i]['id']+'">' +
+												'<div class="d-tip">'+ list[i]['number'] +'</div>' +
+												'<div class="d-div">'+
+													'<h1 class="d-list-h1 ellipsis">'+ list[i]['title'] + '</h1>'+
+													'<h4 class="d-list-h4">'+ 
+														'<span class="d-singer ellipsis">乐人：'+list[i]['nickname']+'</span>'+
+														'<span class="d-number">阅读量：'+list[i]['view_count']+'</span>'+
+													'</h4>'+
+												'</div>'
+											'</li>'
+							}
+						}
+						$article_list.css("display", "block");
+						$article_list.append(dom);
+
+					},
+					error: function(){		
+						$article_list.css("display", "none");						
+						return false;
+					},
+					complete: function(){
+						$loading.css("display", "none");				
+					},
+					
+				});
+			};
+			var setList = function(key){
+        var list = JSON.parse(localStorage[key]),dom = '',len = list.length, before = $article_list.children("li").length;
+
+       	if (len > 0) {
+							for (var i = 0; i < len; i++){
+								dom += '<li class="d-li" title="乐文" subTitle="MUSIC ARTICAL" article_info="'+ list[i]['id']+'">' +
+												'<div class="d-tip">'+ list[i]['number'] +'</div>' +
+												'<div class="d-div">'+
+													'<h1 class="d-list-h1 ellipsis">'+ list[i]['title'] + '</h1>'+
+													'<h4 class="d-list-h4">'+ 
+														'<span class="d-singer ellipsis">乐人：'+list[i]['nickname']+'</span>'+
+														'<span class="d-number">阅读量：'+list[i]['view_count']+'</span>'+
+													'</h4>'+
+												'</div>'
+											'</li>'
+							}
+					$article_list.append(dom);
+
+        }else{
+            $more.html('到底了');
+            isFooter = true;
+        };
+
+      }
+			request();
+			// 上拉加载
+			$doc.on("scrollstop",function(){
+  			if($win.scrollTop() + $win.height() >= $doc.height()-400 && !isLoad && !isFooter){
+					$more.html('<div class="yyloader"><span></span><span></span><span></span><img src="http://up.wawa.fm/21,019486d41d666e"/></div>');
+					isLoad = true;
+					reqdata = {	category: 4, size: 10, page: Math.ceil($article_list.children("li").length / 10)+1 }  
+      	 	if (navigator.onLine){
+
+  	 		  	$.yy['ajax']({
+  	 		  		url: "doc/list",
+  	 		  		type: "GET",
+  	 		  		data: reqdata,
+  	 		  		success: function(data){localStorage["doc/list" + reqdata['page']] = JSON.stringify(data);},
+  	 		  		error: function(){$more.html("请求数据有误").show();return false;},
+  	 		  		complete: function(data,para) { 
+            		isLoad = false;
+								if (localStorage["doc/list" + reqdata['page']] == undefined) {
+			      		    $more.html("暂无数据").show();
+			      		    return false
+			      		} else {
+			      		  setList("doc/list"+reqdata['page']);
+			      		}
+            	}  	
+  	 		  	})
+  	 		 	} else {
+  	 		 		$more.html("网络连接错误").show();
+		  	  	return false;
+				 	}
+      	}
+      	return false;
+  		});
+
+  		$doc.on("tap",'.d-li', function() {
+  			$.yy['nextHref']('articleInfo.html',$(this).attr("article_info"),$(this).attr("title"),$(this).attr("subTitle"));
+  			return false
+  		})
+		});
+	</script>
+</body>
+</html>

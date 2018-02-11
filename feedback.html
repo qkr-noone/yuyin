@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+	<link rel="stylesheet" href="../css/yuyin.fonts.css" />
+	<link rel="stylesheet" href="../css/yuyin.content.css" />
+	<link rel="stylesheet" href="../css/yy.css" />
+	<link rel="icon" href="../img/app/yuyinfavicon.ico" />
+	<title></title>
+
+	<style>
+	ul,li,p{margin:0; padding: 0;}
+	textarea:focus,input:focus,a:focus{outline: none; }
+	input,textarea,a{-webkit-tap-highlight-color: rgba(0,0,0,0);-webkit-appearance:none;-webkit-user-modify:read-write-plaintext-only; border-radius:0;}
+	.back_info{overflow: hidden;}
+	.back_tip{margin:20px 20px 10px 20px;font-size: 12px; line-height: 16.5px;color: #9b9b9b;}
+	.line{margin-top: 10px;margin-bottom: 36px;background: #d8d8d8;}
+	textarea{  width: calc(100% - 40px); height:112px; overflow: auto; resize: none;margin: 0 20px;  float: left; border: 1px solid #d8d8d8;    font-size: 14px;line-height: 22px; box-sizing: border-box;    padding: 12px;}
+	input{width:calc(100% - 40px); height:45px; overflow: auto; margin: 30px 20px; border: 1px solid #d8d8d8;font-size: 14px; line-height: 21px;padding: 12px; box-sizing: border-box;}
+	#submit{width: 120px;    height: 44.5px;    line-height: 44.5px;    display: block;    margin: 0 auto;    border: 1px solid;text-align: center;font-size: 12px;}
+
+	.alert{top: calc(50% - 110px); }
+	</style>
+
+</head>
+<body>
+<div id="loading">
+	<div class="yyloader">
+			<span></span>
+			<span></span>
+			<span></span>
+			<img src="http://up.wawa.fm/21,019486d41d666e"/>
+	</div>
+</div>
+<div class="back_info ">
+	<br>
+<!-- 	<p class="back_tip">若您还有什么使用上的疑问，或是意见和建议</p>
+	<div class="line"></div> -->
+	<textarea placeholder="请写下你对余音的意见和建议（必填）"></textarea>
+	<input type="email" placeholder="请填写你的邮箱（必填）">
+	<div id="submit">提交</div>
+</div>
+	
+	<script src="../js/jquery.js"></script>
+	<script src="../js/md5.min.js"></script>
+	<script src="../js/yy.js"></script>
+	<script>		
+		
+		$(function(){
+			var $win= $(window),
+					$doc= $(document),
+					$textV = $('textarea'),
+					$inputV = $('input'),
+					$loading = $('#loading'),					
+					onceInput = true;
+
+			$loading.css('display','none');	
+			$doc.on('tap', '#submit', function() {
+				$textV.blur();
+				$inputV.blur();
+				if (!$textV.val().length) {
+					$.yy['alert']({'icon':'icon-info','word':'请输入内容'})
+				} else if ($textV.val().length>200) {
+					$.yy['alert']({'icon':'icon-info','word':'请保持在200字内'})
+				} else if (!$inputV.val()) {
+					$.yy['alert']({'icon':'icon-info','word':'请填写邮箱'})
+				} else if (!parseEmail($inputV.val())) {
+					$.yy['alert']({'icon':'icon-info','word':'请核对邮箱'})
+				} else {
+					//提交
+					$.ajax({
+						url: '//wawa.fm/app/v1/auth/feedback/add',
+						type: 'POST',
+						data: ({
+							content: $textV.val(),
+							version_code: window.verson,
+							platform: window.platform,
+							category: 2,
+							contact: $inputV.val()
+						}),
+						beforeSend: function(request) {
+              request.setRequestHeader('Authorization', 'wawa ' + window.token);
+            },
+           	success: function(data) {
+           		$inputV.val('');
+           		$textV.val('');
+           		$.yy['alert']({'icon':'icon-success','word':'提交成功'});
+           		send_close_webview();
+           	}
+					})
+				}
+				return false
+			})
+			.on("input", "textarea", function() {
+				if ($textV.val().length>200 && onceInput) {
+					$.yy['alert']({'icon':'icon-info','word':'请保持在200字内'});
+					onceInput = false;
+				}
+				return false
+			})
+
+			window.get_token_info = function(token_1,uid,platform,verson) {
+				window.token =	token_1;
+				window.uid = uid;
+				window.platform = platform;
+				window.verson = verson;
+  		};
+  		window.onTabMusic = function(id) {};
+  		//验证邮箱
+  		parseEmail = function(szMail){
+  			var reg = new RegExp("^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$");
+  			// var szReg=/^[A-Za-zd]+([-_.][A-Za-zd]+)*@([A-Za-zd]+[-.])+[A-Za-zd]{2,5}$/; 
+				var bChk=reg.test(szMail); 
+				return bChk; 
+  		}
+		});
+	</script>
+</body>
+</html>
